@@ -2,6 +2,12 @@
 *a simple bot for Ponderosa High School hub discord servers*<br>
 [invite me](https://discord.com/api/oauth2/authorize?client_id=893988257107410944&permissions=0&scope=bot%20applications.commands)
 
+
+# Features
+
+random [Presences](/bot.js#L6-L12) whenever the bot starts
+some [Commands](#commands)
+
 ## commands
 
 ### help
