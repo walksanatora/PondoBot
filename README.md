@@ -6,4 +6,4 @@
 sends a ephermiral (hidden from other users) embed containg command names and help text
 
 ### reload
-a command used by any whitelisted user (see [here](/commands/reload.js#20))
+a command used by any whitelisted user (see [here](/commands/reload.js#L20))
