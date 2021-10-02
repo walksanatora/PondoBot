@@ -1,0 +1,26 @@
+{
+  "name": "pondobot",
+  "version": "1.0.0",
+  "description": "The (unnoficial) bot of Ponderosa High School",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walksanatora/PondoBot.git"
+  },
+  "author": "walksanator",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/walksanatora/PondoBot/issues"
+  },
+  "homepage": "https://github.com/walksanatora/PondoBot#readme",
+  "dependencies": {
+    "@discordjs/builders": "^0.6.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
+    "discord-api-types": "^0.23.1",
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0"
+  }
+}
