@@ -5,7 +5,7 @@
 
 # Features
 
-random [Presences](/bot.js#L6-L12) whenever the bot starts
+random [Presences](/bot.js#L6-L12) whenever the bot starts<br>
 some [Commands](#commands)
 
 ## commands
