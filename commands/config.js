@@ -6,9 +6,9 @@ const data = new SlashCommandBuilder()
 
 async function func(interaction,client){ 
 	if (await interaction.member.permissions.has('MANAGE_GUILD')){
-		await interaction.reply({content:'Allowed',ephemeral:true})
+		await interaction.reply({content:'Allowed, you have the `Manage Server` permission',ephemeral:true})
 	} else {
-		await interaction.reply({content: 'Denied',ephemeral:true})
+		await interaction.reply({content: 'Denied, requires `Manage Server` permissions',ephemeral:true})
 	}
 
 }
