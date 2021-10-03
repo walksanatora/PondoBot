@@ -5,7 +5,12 @@ const data = new SlashCommandBuilder()
 	.setDescription('configuraion for the bot')
 
 async function func(interaction,client){ 
-	console.log('does the user have MANAGE_GUILD',await interaction.member.permissions.has('MANAGE_GUILD'))
+	if (await interaction.member.permissions.has('MANAGE_GUILD')){
+		await interaction.reply({content:'Allowed',ephemeral:true})
+	} else {
+		await interaction.reply({content: 'Denied',ephemeral:true})
+	}
+
 }
 
 module.exports={
