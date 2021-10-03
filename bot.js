@@ -1,8 +1,10 @@
 require('dotenv').config()
 const discord = require('discord.js')
 const { codeBlock } = require('@discordjs/builders');
-const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
 const fs = require('fs');
+
+const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
+
 const wittyPresences = [
 	'Hello World!',
 	'How is your day',

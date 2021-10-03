@@ -41,17 +41,22 @@ const noToYear ={
 	4:'senior'
 }
 
+const blank = {
+	user: {},
+	server: {}
+}
+
 async function func(interaction,client){
-	try{var db = require('../storage.json')}catch (error){db = {}}
+	try{var db = require('../storage.json')}catch (error){db = blank}
 	user = interaction.user.id
-	if( ! has(user,Object.keys(db))){db[user] = {}}
+	if( ! has(user,Object.keys(db.user))){db.user[user] = {}}
 	switch (interaction.options.getSubcommand(true)) {
 		case 'set-grade':
-				db[user].grade = Number(interaction.options.getString('year',true))
-				interaction.reply({content:`updated year to id ${db[user].grade}`,ephemeral:true})
+				db.user[user].grade = Number(interaction.options.getString('year',true))
+				interaction.reply({content:`updated year to id ${db.user[user].grade}`,ephemeral:true})
 			break;
 		case 'get-grade':
-				interaction.reply({content:`your are currently in ${noToYear[db[user].grade]} year`,ephemeral:true})
+				interaction.reply({content:`your are currently in ${noToYear[db.user[user].grade]} year`,ephemeral:true})
 			break;
 		default:
 			interaction.reply({content:'invalid command',ephemeral:true})
