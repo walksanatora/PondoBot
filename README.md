@@ -1,6 +1,6 @@
 # PondoBot
 *a simple bot for Ponderosa High School hub discord servers*<br>
-[invite me](https://discord.com/api/oauth2/authorize?client_id=893988257107410944&permissions=0&scope=bot%20applications.commands)
+[invite me](https://discord.com/api/oauth2/authorize?client_id=893988257107410944&permissions=380574485568&scope=bot%20applications.commands)
 
 
 # Features
@@ -15,6 +15,16 @@ sends a ephermiral (hidden from other users) embed containg command names and he
 
 ### reload
 a command used by any whitelisted user (see [here](/commands/reload.js#L20))
+
+### students
+command that involves student data current has 3 sub Commands<br>
+* `set-grade` - sets the grade you are in <br>
+* `get-grade` - lets you know which grade you are in <br>
+* `get-role` - gives you your role if the server has been configured<br>
+
+### config
+command that configures variables for your server
+* `set-roles` takes 4 optional arguments for each role (if left blank it will create roles for them)
 
 ## Contribuiting
 

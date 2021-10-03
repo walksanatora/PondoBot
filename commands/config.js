@@ -1,4 +1,15 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const fs = require('fs')
+
+function has(value,array) {
+	let hasValue = false
+	array.forEach(element => {
+		if (element == value){
+			hasValue = true
+		}
+	})
+	return hasValue
+}
 
 const data = new SlashCommandBuilder()
 	.setName('config')
@@ -29,18 +40,40 @@ const blank = {
 	server: {}
 }
 
+const optionNameToRoleName = {
+	'freshman-role': 'freshman',
+	'sophomore-role': 'sophomore',
+	'junior-role': 'junior',
+	'senior-role': 'senior'
+}
+
+const optionNameToRoleColor = {
+	'freshman-role': [255,255,0],
+	'sophomore-role': [255,192,203],
+	'junior-role': [0,0,255],
+	'senior-role': [255,165,0]
+}
+
+async function getroleid(name,interaction){
+	var tmp = await interaction.options.getRole(name)
+	if (tmp == null){
+		tmp = await interaction.guild.roles.create({name: optionNameToRoleName[name],color: optionNameToRoleColor[name]})
+	}
+	return tmp.id
+}
+
 async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}
+	server = interaction.guild.id
 	if (await interaction.member.permissions.has('MANAGE_GUILD')){
-		if (interaction.options != null){
-			var freshman = interaction.options.getRole('freshman-role')
-			var sophmore = interaction.options.getRole('sophmore-role')
-			var junior = interaction.options.getRole('junior-role')
-			var senior = interaction.options.getRole('senior-role')
-		} else {
-			console.log('creating all roles')
-		}
-		await interaction.reply({content:'Allowed, you have the `Manage Server` permission',ephemeral:true})
+		if( ! has(server,Object.keys(db.server))){db.server[server] = {}}
+		var froshid = await getroleid('freshman-role',interaction)
+		var sophid = await getroleid('sophomore-role',interaction)
+		var juniorid = await getroleid('junior-role',interaction)
+		var seniorid = await getroleid('senior-role',interaction)
+		var roleArray = [froshid,sophid,juniorid,seniorid]
+		db.server[server].grade = roleArray
+		await interaction.reply({content:`updated roles to <@&${froshid}>,<@&${sophid}>,<@&${juniorid}>,<@&${seniorid}>`,ephemeral:true})
 	} else {
 		await interaction.reply({content: 'Denied, requires `Manage Server` permissions',ephemeral:true})
 	}
