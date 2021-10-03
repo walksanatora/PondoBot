@@ -33,6 +33,10 @@ const data = new SlashCommandBuilder()
 		sub.setName('get-grade')
 			.setDescription('lets you know what your currently configured grade is')
 	)
+	.addSubcommand((sub)=>
+		sub.setName('get-role')
+			.setDescription('assigns you the role configured for this server for your grade')
+	)
 
 const noToYear ={
 	1:'freshman',
@@ -53,13 +57,20 @@ async function func(interaction,client){
 	switch (interaction.options.getSubcommand(true)) {
 		case 'set-grade':
 				db.user[user].grade = Number(interaction.options.getString('year',true))
-				interaction.reply({content:`updated year to id ${db.user[user].grade}`,ephemeral:true})
+				await interaction.reply({content:`updated year to id ${db.user[user].grade}`,ephemeral:true})
 			break;
 		case 'get-grade':
-				interaction.reply({content:`your are currently in ${noToYear[db.user[user].grade]} year`,ephemeral:true})
+				await interaction.reply({content:`your are currently in ${noToYear[db.user[user].grade]} year`,ephemeral:true})
+			break;
+		case 'get-role':
+				guildID = interaction.guildID
+				if( ! has(guildID,Object.keys(db.server))) {await interaction.reply({content:'Not Setup, ask someone with `manage channels` to set it up',ephemeral:false})} else{
+					interaction.member.roles.remove(db.server[guildID].grade)
+					interaction.member.roles.add(db.server[guildID].grade[db.user[user].grade - 1])
+				}
 			break;
 		default:
-			interaction.reply({content:'invalid command',ephemeral:true})
+			await interaction.reply({content:'invalid command',ephemeral:true})
 	}
 	fs.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
 }
