@@ -31,6 +31,7 @@ for (const file of commandFiles) {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
+	console.log(`Invoking /command ${interaction.commandName} from user ${interaction.user.username}`)
 	try {
 		await commands[interaction.commandName].function(interaction,client)	
 	} catch (error) {
