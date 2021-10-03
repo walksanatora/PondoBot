@@ -32,11 +32,15 @@ const blank = {
 async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}
 	if (await interaction.member.permissions.has('MANAGE_GUILD')){
-		var freshman = interaction.options.getRole('freshman-role')
-		var sophmore = interaction.options.getRole('sophmore-role')
-		var junior = interaction.options.getRole('junior-role')
-		var senior = interaction.options.getRole('senior-role')
-		(freshman==null)? console.log(0):console.log(1)
+		if (interaction.options != null){
+			var freshman = interaction.options.getRole('freshman-role')
+			var sophmore = interaction.options.getRole('sophmore-role')
+			var junior = interaction.options.getRole('junior-role')
+			var senior = interaction.options.getRole('senior-role')
+			(freshman==null)? console.log(0):console.log(1)
+		} else {
+			console.log('creating all roles')
+		}
 		await interaction.reply({content:'Allowed, you have the `Manage Server` permission',ephemeral:true})
 	} else {
 		await interaction.reply({content: 'Denied, requires `Manage Server` permissions',ephemeral:true})
