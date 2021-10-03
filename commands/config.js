@@ -37,7 +37,6 @@ async function func(interaction,client){
 			var sophmore = interaction.options.getRole('sophmore-role')
 			var junior = interaction.options.getRole('junior-role')
 			var senior = interaction.options.getRole('senior-role')
-			(freshman==null)? console.log(0):console.log(1)
 		} else {
 			console.log('creating all roles')
 		}
