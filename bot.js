@@ -19,7 +19,8 @@ DISCORD_CLIENT: the client ID of said bot
 */
 
 client.once('ready', () => {
-	console.log('Ready!');
+	console.log(`Bot is logged in and ready! with tag ${client.user.tag}`);
+	client.user.setPresence({ activities: [{ name: wittyPresences[Math.floor(Math.random()*wittyPresences.length)] }], status: 'online' })
 	setInterval(
 		function(){
 			client.user.setPresence({ activities: [{ name: wittyPresences[Math.floor(Math.random()*wittyPresences.length)] }], status: 'online' })
