@@ -49,7 +49,6 @@ client.on('interactionCreate', async interaction => {
 			.setColor('#ff0000')
 			.setTitle('Error occured')
 			.addField('Excpetion',error.toString())
-			.addField('Detail',codeBlock(error.stack))
 		console.log(error.stack)
 		await interaction.reply({embeds: [exampleEmbed]})
 	}
