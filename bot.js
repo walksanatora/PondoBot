@@ -20,7 +20,13 @@ DISCORD_CLIENT: the client ID of said bot
 
 client.once('ready', () => {
 	console.log('Ready!');
-	client.user.setPresence({ activities: [{ name: wittyPresences[Math.floor(Math.random()*wittyPresences.length)] }], status: 'online' });
+	setInterval(
+		function(){
+			client.user.setPresence({ activities: [{ name: wittyPresences[Math.floor(Math.random()*wittyPresences.length)] }], status: 'online' })
+		},
+		100
+	)
+
 });
 
 global.commands = {}
