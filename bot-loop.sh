@@ -1,5 +1,5 @@
 #!/bin/bash
-while true do
+while true; do
 	git pull -f 2>&1 | tee -a bot.log
 	npm i 2>&1 | tee -a bot.log
 	node bot.js 2>&1 | tee -a bot.log
