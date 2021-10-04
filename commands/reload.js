@@ -2,24 +2,15 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const discord = require('discord.js')
 const os = require('os');
 const { exit } = require('process');
-
-function has(value,array) {
-	let hasValue = false
-	array.forEach(element => {
-		if (element == value){
-			hasValue = true
-		}
-	})
-	return hasValue
-}
+const { has,authorized } = require('./util.js')
 
 const data = new SlashCommandBuilder()
 	.setName('reload')
 	.setDescription('reloads the bots state')
 
-const allowedUsers = ['596098777941540883']
+
 async function func(interaction,client) {
-	if (has(interaction.user.id, allowedUsers)) {
+	if (authorized(interaction)) {
 		await interaction.reply({content:'reloading Bot, git pulling, npm installing and restarting', ephemeral: true})
 		client.user.setPresence({ activities: [{ name: 'restarting' }], status: 'dnd' });
 		exit()

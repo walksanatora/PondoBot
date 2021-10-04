@@ -1,15 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require('fs')
-
-function has(value,array) {
-	let hasValue = false
-	array.forEach(element => {
-		if (element == value){
-			hasValue = true
-		}
-	})
-	return hasValue
-}
+const { has,authorized } = require('./util.js')
 
 const data = new SlashCommandBuilder()
 	.setName('config')
@@ -65,7 +56,7 @@ async function getroleid(name,interaction){
 async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}
 	server = interaction.guild.id
-	if (await interaction.member.permissions.has('MANAGE_GUILD')){
+	if (authorized(interaction)){
 		if( ! has(server,Object.keys(db.server))){db.server[server] = {}}
 		var froshid = await getroleid('freshman-role',interaction)
 		var sophid = await getroleid('sophomore-role',interaction)

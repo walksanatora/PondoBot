@@ -1,15 +1,6 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const discord = require('discord.js')
-
-function has(value,array) {
-	let hasValue = false
-	array.forEach(element => {
-		if (element == value){
-			hasValue = true
-		}
-	})
-	return hasValue
-}
+const { has } = require('./util.js')
 
 const data = new SlashCommandBuilder() //creating a /command via the special builder
 	.setName('help')

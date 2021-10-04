@@ -1,15 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { has,blank,noToYear } = require('./util.js')
 const fs = require('fs')
 
-function has(value,array) {
-	let hasValue = false
-	array.forEach(element => {
-		if (element == value){
-			hasValue = true
-		}
-	})
-	return hasValue
-}
 
 const data = new SlashCommandBuilder()
 	.setName('students')
@@ -37,18 +29,6 @@ const data = new SlashCommandBuilder()
 		sub.setName('get-role')
 			.setDescription('assigns you the role configured for this server for your grade')
 	)
-
-const noToYear ={
-	1:'freshman',
-	2:'sophmore',
-	3:'junior',
-	4:'senior'
-}
-
-const blank = {
-	user: {},
-	server: {}
-}
 
 async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}
