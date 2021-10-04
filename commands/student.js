@@ -43,6 +43,7 @@ async function func(interaction,client){
 				await interaction.reply({content:`your are currently in ${noToYear[db.user[user].grade]} year`,ephemeral:true})
 			break;
 		case 'get-role':
+				console.log(db)
 				(db.user[user].grade = null)? await interaction.reply({content:'grade not configured',ephemeral:true}):null
 				guildID = interaction.guild.id
 				if( ! has(guildID,Object.keys(db.server))) {await interaction.reply({content:'Not Setup, ask someone with `manage channels` to set it up',ephemeral:false})} else{
