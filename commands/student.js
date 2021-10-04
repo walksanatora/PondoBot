@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { has,blank,noToYear } = require('./util.js')
+const { has,blank,noToYear } = require('../util.js')
 const fs = require('fs')
 
 
