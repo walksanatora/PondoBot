@@ -6,11 +6,11 @@ const fs = require('fs');
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
 
 const wittyPresences = [
-	'Hello World!',
-	'How is your day',
-	'https://github.com/walksanatora/PondoBot',
-	'Where did I leave it',
-	'Wait up'
+	'with your sanity',
+	'with the concept of life and death',
+	'a very complex game',
+	'with your heart',
+	'with values'
 ]
 /*
 variables in .env
