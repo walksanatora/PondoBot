@@ -21,7 +21,7 @@ async function func(interaction,client) {
 
 module.exports={
 	'data':data, //slash command
-	'helpStr':"list off some device status information", //sting to be used when the help command is called
+	'helpStr':"hard-resets the bot for updates (requires authorization)", //sting to be used when the help command is called
 	'canDeploy':true, //can this command be deployed globally to all guilds
 	'guildIds':['783738781097263140'], //guildIDs to roll out to when running for test,
 	'function': func

@@ -59,7 +59,7 @@ async function func(interaction,client){
 
 module.exports={
 	'data':data,
-	'helpStr':"list off some device status information",
+	'helpStr':"configs the grade you are in, and gives you roles",
 	'canDeploy':true,
 	'guildIds':['783738781097263140'],
 	'function': func 
