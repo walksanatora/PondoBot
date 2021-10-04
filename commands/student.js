@@ -47,7 +47,7 @@ async function func(interaction,client){
 				guildID = interaction.guild.id
 				if( ! has(guildID,Object.keys(db.server))) {await interaction.reply({content:'Not Setup, ask someone with `manage channels` to set it up',ephemeral:false})} else{
 					interaction.member.roles.remove(db.server[guildID].grade)
-					console.log(db.server[guildID].grade[db.user[user].grade])
+					console.log(db.server[guildID])
 					interaction.member.roles.add(db.server[guildID].grade[db.user[user].grade - 1])
 					await interaction.reply({content:'roles given',ephemeral:true})
 				}
