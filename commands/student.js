@@ -33,7 +33,6 @@ const data = new SlashCommandBuilder()
 async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}
 	user = interaction.user.id
-	console.log(db)
 	if( ! has(user,Object.keys(db.user))){db.user[user] = {}}
 	switch (interaction.options.getSubcommand(true)) {
 		case 'set-grade':
@@ -44,14 +43,10 @@ async function func(interaction,client){
 				await interaction.reply({content:`your are currently in ${noToYear[db.user[user].grade]} year`,ephemeral:true})
 			break;
 		case 'get-role':
-				(db.user[user].grade = null)? await interaction.reply({content:'grade not configured',ephemeral:true}):null
+				(db.user[user].grade == null)? await interaction.reply({content:'grade not configured',ephemeral:true}):console.log()
 				guildID = interaction.guild.id
 				if( ! has(guildID,Object.keys(db.server))) {await interaction.reply({content:'Not Setup, ask someone with `manage channels` to set it up',ephemeral:false})} else{
 					interaction.member.roles.remove(db.server[guildID].grade)
-					console.log(guildID,' ',user)
-					console.log(db.server[guildID]['grade'])
-					console.log(db.user[user]['grade'])
-					console.log(db.server[guildID]['grade'][db.user[user]['grade']])
 					interaction.member.roles.add(db.server[guildID].grade[db.user[user].grade - 1])
 					await interaction.reply({content:'roles given',ephemeral:true})
 				}
