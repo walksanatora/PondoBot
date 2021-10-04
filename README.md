@@ -14,7 +14,7 @@ some [Commands](#commands)
 sends a ephermiral (hidden from other users) embed containg command names and help text
 
 ### reload
-a command used by any whitelisted user (see [here](/commands/reload.js#L20))
+a command used by any whitelisted user (see [here](util.js#L15))
 
 ### students
 command that involves student data current has 3 sub Commands<br>
