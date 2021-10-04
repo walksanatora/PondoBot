@@ -35,6 +35,7 @@ module.exports ={
 	has: has,
 	blank: blankDB,
 	noToYear: noToYear,
-	allowedUsers:allowedUsers
+	allowedUsers:allowedUsers,
+	authorized:authorized
 
 }
