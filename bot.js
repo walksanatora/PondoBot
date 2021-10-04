@@ -24,7 +24,7 @@ client.once('ready', () => {
 		function(){
 			client.user.setPresence({ activities: [{ name: wittyPresences[Math.floor(Math.random()*wittyPresences.length)] }], status: 'online' })
 		},
-		100
+		10000
 	)
 
 });
