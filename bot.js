@@ -44,6 +44,7 @@ client.on('interactionCreate', async interaction => {
 	try {
 		await commands[interaction.commandName].function(interaction,client)	
 	} catch (error) {
+		console.log('ERROR OCCURRED OHNO!!!')
 		const exampleEmbed = new discord.MessageEmbed()
 			.setColor('#ff0000')
 			.setTitle('Error occured')
