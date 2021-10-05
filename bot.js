@@ -2,6 +2,7 @@ require('dotenv').config()
 const discord = require('discord.js')
 const { codeBlock } = require('@discordjs/builders');
 const fs = require('fs');
+const {authorize} = require('./libs/email.js')
 
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
 
@@ -18,7 +19,9 @@ DISCORD_TOKEN: your discord token
 DISCORD_CLIENT: the client ID of said bot
 */
 
-client.once('ready', () => {
+client.once('ready', async () => {
+	require('./credentials.json')
+	global.OAuth2 = await authorize()
 	console.log(`Bot is logged in and ready! with tag ${client.user.tag}`);
 	client.user.setPresence({ activities: [{ name: wittyPresences[Math.floor(Math.random()*wittyPresences.length)] }], status: 'online' })
 	setInterval(

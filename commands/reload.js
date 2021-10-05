@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const discord = require('discord.js')
 const os = require('os');
 const { exit } = require('process');
-const { has,authorized } = require('../util.js')
+const { authorized } = require('../util.js')
 
 const data = new SlashCommandBuilder()
 	.setName('reload')
