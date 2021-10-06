@@ -43,6 +43,8 @@ const data = new SlashCommandBuilder()
 			)
 	)
 
+function gk(user,uname) {return crypto.createHash('md5').update(`${user}${process.env.SALT}${uname}`).digest('hex')}
+
 async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}
 	user = interaction.user.id
@@ -70,23 +72,24 @@ async function func(interaction,client){
 				} if (interaction.options.getString('key') != null && interaction.options.getString('username') != null ) {
 					await interaction.reply({content: 'please only specify one option',ephemeral:true})
 				} if (interaction.options.getString('key') != null) {
+					uname = db.user[user].email
 					console.log('checking key')
 					if (db.user[user].email == null) {
 						await interaction.reply({content:'you dont appear to have a email attached to your account',ephemeral:true})
 					} else {
 						const key = interaction.options.getString('key')
-						if (key == crypto.createHash('md5').update(`${user}${process.env.SALT}${db.user[user].email}`).digest('hex')){
+						if (key == gk(user,uname)){
 							db.user[user].emailVerified = true
 							await interaction.reply({content: 'Email Verified',ephemeral:true})
 						}else{
-							console.log('key mismatch got: ',key,' expected:', crypto.createHash('md5').update(`${user}${process.env.SALT}${db.user[user].email}`).digest('hex'))
+							console.log('key mismatch got: ',key,' expected:', gk(user,uname))
 							await interaction.reply({content: 'Email verification failed',ephemeral:true})
 						}
 					}
 				} if (interaction.options.getString('key') == null) {
 					console.log('sending email')
 					const uname = interaction.options.getString('username')
-					const key = crypto.createHash('md5').update(`${user}${process.env.SALT}${uname}`).digest('hex')
+					const key = gk(user,uname)
 					db.user[user].email = uname
 					const message = [
 						`Hello There ${interaction.user.tag}`,
