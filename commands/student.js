@@ -70,16 +70,21 @@ async function func(interaction,client){
 				} if (interaction.options.getString('key') != null && interaction.options.getString('username') != null ) {
 					await interaction.reply({content: 'please only specify one option',ephemeral:true})
 				} if (interaction.options.getString('key') != null) {
+					console.log('checking key')
 					if (db.user[user].email == null) {
 						await interaction.reply({content:'you dont appear to have a email attached to your account',ephemeral:true})
 					} else {
 						const key = interaction.options.getString('key')
 						if (key == crypto.createHash('md5').update(`${user}${process.env.SALT}${db.user[user].email}`).digest('hex')){
 							db.user[user].emailVerified = true
-							await interaction.reply({content: 'Email Verified'})
+							await interaction.reply({content: 'Email Verified',ephemeral:true})
+						}else{
+							console.log('key mismatch got: ',key,' expected:', crypto.createHash('md5').update(`${user}${process.env.SALT}${db.user[user].email}`).digest('hex'))
+							await interaction.reply({content: 'Email verification failed',ephemeral:true})
 						}
 					}
 				} if (interaction.options.getString('key') == null) {
+					console.log('sending email')
 					const uname = interaction.options.getString('username')
 					const key = crypto.createHash('md5').update(`${user}${process.env.SALT}${uname}`).digest('hex')
 					db.user[user].email = uname
