@@ -58,7 +58,7 @@ function gk(user,uname) {return crypto.createHash('md5').update(`${user}${proces
 
 async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}
-	user = interaction.user.id
+	var user = interaction.user.id
 	if( ! has(user,Object.keys(db.user))){db.user[user] = {}}
 	switch (interaction.options.getSubcommand(true)) {
 		case 'set-grade':
@@ -114,7 +114,7 @@ async function func(interaction,client){
 				}
 			break;
 		case 'lookup':
-				const user = interaction.options.getUser('user').id
+				var user = interaction.options.getUser('user').id
 				var message = (db.user[user] == undefined)? 'User does not have any data': [
 					(db.user[user].email != undefined)? `Email: ${db.user[user].email}@eduhsd.k12.ca.us`:'Email: unset',
 					(db.user[user].emailVerified != undefined)? `Email Verified: ${db.user[user].emailVerified}`:'Email Verified: unset',
