@@ -91,6 +91,7 @@ async function func(interaction,client){
 					const uname = interaction.options.getString('username')
 					const key = gk(user,uname)
 					db.user[user].email = uname
+					db.user[user].emailVerified = false
 					const message = [
 						`Hello There ${interaction.user.tag}`,
 						'You appear to have to ran a email verification, to verify just run',
