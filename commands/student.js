@@ -116,9 +116,9 @@ async function func(interaction,client){
 		case 'lookup':
 				const user = interaction.options.getUser('user').id
 				var message = [
-					(db.user[user].email == undefined)? `Email: ${db.user[user].email}@eduhsd.k12.ca.us`:'Email:unset',
-					(db.user[user].emailVerified == undefined)? `Email Verified: ${db.user[user].emailVerified}`:'Email Verified: unset',
-					(db.user[user].grade == undefined)? `Grade: ${noToYear[db.user[user].grade]}}`:'Grade: unset'
+					(db.user[user].email != undefined)? `Email: ${db.user[user].email}@eduhsd.k12.ca.us`:'Email:unset',
+					(db.user[user].emailVerified != undefined)? `Email Verified: ${db.user[user].emailVerified}`:'Email Verified: unset',
+					(db.user[user].grade != undefined)? `Grade: ${noToYear[db.user[user].grade]}}`:'Grade: unset'
 				].join('\n')
 				const exampleEmbed = new discord.MessageEmbed()
 					.setColor([0,255,128])
