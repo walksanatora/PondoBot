@@ -115,11 +115,12 @@ async function func(interaction,client){
 			break;
 		case 'lookup':
 				const user = interaction.options.getUser('user').id
-				var message = [
+				var message = (db.user[user] == undefined)? 'User does not have any data': [
 					(db.user[user].email != undefined)? `Email: ${db.user[user].email}@eduhsd.k12.ca.us`:'Email: unset',
 					(db.user[user].emailVerified != undefined)? `Email Verified: ${db.user[user].emailVerified}`:'Email Verified: unset',
 					(db.user[user].grade != undefined)? `Grade: ${noToYear[db.user[user].grade]}`:'Grade: unset'
 				].join('\n')
+				
 				const exampleEmbed = new discord.MessageEmbed()
 					.setColor([0,255,128])
 					.setTitle(`Information on ${interaction.options.getUser('user').tag}`)
