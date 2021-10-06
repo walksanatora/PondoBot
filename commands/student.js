@@ -3,7 +3,8 @@ const { has,blank,noToYear } = require('../libs/util.js')
 const { sendMessage } = require('../libs/email.js')
 const fs = require('fs')
 const discord = require('discord.js')
-const crypto = require('crypto')
+const crypto = require('crypto');
+const { doubleclicksearch } = require('googleapis/build/src/apis/doubleclicksearch');
 
 const data = new SlashCommandBuilder()
 	.setName('students')
@@ -115,9 +116,9 @@ async function func(interaction,client){
 		case 'lookup':
 				const user = interaction.options.getUser('user').id
 				var message = [
-					`Email: ${db.user[user].email}@eduhsd.k12.ca.us`,
-					`Email Verified: ${db.user[user].emailVerified}`,
-					`Grade: ${noToYear[db.user[user].grade]}`
+					(db.user[user].email == undefined)? `Email: ${db.user[user].email}@eduhsd.k12.ca.us`:'Email:unset',
+					(db.user[user].emailVerified == undefined)? `Email: ${db.user[user].emailVerified}`:'Email Verified: unset',
+					(db.user[user].grade == undefined)? `Grade: ${noToYear[db.user[user].grade]}}`:'Grade: unset'
 				].join('\n')
 				const exampleEmbed = new discord.MessageEmbed()
 					.setColor([0,255,128])
