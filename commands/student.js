@@ -2,7 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { has,blank,noToYear } = require('../libs/util.js')
 const { sendMessage } = require('../libs/email.js')
 const fs = require('fs')
-
+const crypto = require('crypto')
 
 const data = new SlashCommandBuilder()
 	.setName('students')
