@@ -21,6 +21,7 @@ command that involves student data current has 3 sub Commands<br>
 * `set-grade` - sets the grade you are in <br>
 * `get-grade` - lets you know which grade you are in <br>
 * `get-role` - gives you your role if the server has been configured<br>
+* `email-verify` - command for verifying your email <br>
 
 ### config
 command that configures variables for your server

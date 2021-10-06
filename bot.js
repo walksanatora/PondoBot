@@ -17,6 +17,7 @@ const wittyPresences = [
 variables in .env
 DISCORD_TOKEN: your discord token
 DISCORD_CLIENT: the client ID of said bot
+SALT: a random string used for ofsetting the encryption used in email verification
 */
 
 client.once('ready', async () => {
