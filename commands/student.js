@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const { has,blank,noToYear } = require('../libs/util.js')
 const { sendMessage } = require('../libs/email.js')
 const fs = require('fs')
+const discord = require('discord.js')
 const crypto = require('crypto')
 
 const data = new SlashCommandBuilder()
@@ -40,6 +41,15 @@ const data = new SlashCommandBuilder()
 			.addStringOption((opt) =>
 			    opt.setName('username')
 					.setDescription('the part before @eduhsd.k12.ca.us')
+			)
+	)
+	.addSubcommand((sub)=>
+		sub.setName('lookup')
+			.setDescription('looks up the users information stored in the bot')
+			.addUserOption((opt)=>
+				opt.setName('user')
+					.setDescription('the user to lookup')
+					.setRequired(true)
 			)
 	)
 
@@ -101,6 +111,19 @@ async function func(interaction,client){
 					await sendMessage(OAuth2,`${uname}@eduhsd.k12.ca.us`,'your PondoBot verification',message)
 					await interaction.reply({content:`email sent to ${uname}@eduhsd.k12.ca.us by fowl21043@eduhsd.k12.ca.us`,ephemeral:true})
 				}
+			break;
+		case 'lookup':
+				const user = interaction.options.getUser('user').id
+				var message = [
+					`Email: ${db.user[user].email}@eduhsd.k12.ca.us`,
+					`Email Verified: ${db.user[user].emailVerified}`,
+					`Grade: ${noToYear[db.user[user].grade]}`
+				].join('\n')
+				const exampleEmbed = new discord.MessageEmbed()
+					.setColor([0,255,128])
+					.setTitle('A full list of commands')
+					.addField('Public information',message)
+				await interaction.reply({embeds: [exampleEmbed],ephemeral:true})
 			break;
 		default:
 			await interaction.reply({content:'invalid command',ephemeral:true})
