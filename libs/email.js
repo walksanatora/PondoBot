@@ -26,7 +26,7 @@ async function authorize(credentials) {
 
   // Check if we have previously stored a token.
   	
- 	try {var token = require('./token.json')}
+ 	try {var token = require('../token.json')}
 	catch (error) {
 		const authUrl = oAuth2Client.generateAuthUrl({
 			access_type: 'offline',

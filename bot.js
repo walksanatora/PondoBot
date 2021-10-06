@@ -21,8 +21,7 @@ SALT: a random string used for ofsetting the encryption used in email verificati
 */
 
 client.once('ready', async () => {
-	require('./credentials.json')
-	global.OAuth2 = await authorize()
+	global.OAuth2 = await authorize(require('./credentials.json'))
 	console.log(`Bot is logged in and ready! with tag ${client.user.tag}`);
 	client.user.setPresence({ activities: [{ name: wittyPresences[Math.floor(Math.random()*wittyPresences.length)] }], status: 'online' })
 	setInterval(
