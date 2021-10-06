@@ -76,8 +76,7 @@ function makeBody(to, from, subject, message) {
 */
 async function sendMessage(auth,recieve,subject,content) {
     const gmail = google.gmail({version: 'v1', auth});
-    var myemail = gmail.users.getProfile({userId: 'me'})
-	var raw = makeBody(recieve, myemail, subject, content);
+	var raw = makeBody(recieve,'PondoBot Verifier', subject, content);
     return await gmail.users.messages.send({
         auth: auth,
         userId: 'me',
