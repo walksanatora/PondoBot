@@ -95,7 +95,7 @@ async function func(interaction,client){
 			}
 
 		default:
-			await interaction.reply({content:'invalid command',ephemeral:true})
+			await interaction.reply({content:`invalid command ${interaction.options.getSubcommand(true)}`,ephemeral:true})
 		
 	}
 }
