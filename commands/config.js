@@ -38,6 +38,15 @@ const data = new SlashCommandBuilder()
 			.setDescription('role to give upon email verification (blank to unset)')
 		)
 	)
+	.addSubcommand((sub)=>
+		sub.setName('show-message')
+		.setDescription('whether or not to show commands in chat')
+		.addBooleanOption((opt)=>
+			opt.setName('shown')
+			.setDescription('whether commands should be shown in chat')
+			.setRequired('required')
+		)
+	)
 
 const blank = {	
 	user: {},
@@ -79,9 +88,9 @@ async function func(interaction,client){
 				var seniorid = await getroleid('senior-role',interaction)
 				var roleArray = [froshid,sophid,juniorid,seniorid]
 				db.server[server].grade = roleArray
-				await interaction.reply({content:`updated roles to <@&${froshid}>,<@&${sophid}>,<@&${juniorid}>,<@&${seniorid}>`,ephemeral:true})
+				await interaction.reply({content:`updated roles to <@&${froshid}>,<@&${sophid}>,<@&${juniorid}>,<@&${seniorid}>`,ephemeral:(db.server[server].showMessages)? false:true})
 			} else {
-				await interaction.reply({content: 'Denied, requires `Manage Server` permissions',ephemeral:true})
+				await interaction.reply({content: 'Denied, requires `Manage Server` permissions',ephemeral:(db.server[server].showMessages)? false:true})
 			}
 		break;
 		case 'current':
@@ -92,6 +101,8 @@ async function func(interaction,client){
 					`\`Sophmore:\` ${roleMention(db.server[server].grade[1])}`,
 					`\`Junior:\`   ${roleMention(db.server[server].grade[2])}`,
 					`\`Senior:\`   ${roleMention(db.server[server].grade[3])}`,
+					'**---Other---**',
+					`\`showMessages:\` ${(db.server[server].showMessages)? true:false}`
 				].join('\n')
 
 				var embed = new discord.MessageEmbed()
@@ -100,20 +111,32 @@ async function func(interaction,client){
 					.addField('current server configuration',message)
 				
 			}
-			await interaction.reply({embeds:[embed],ephemeral:true})
+			await interaction.reply({embeds:[embed],ephemeral:(db.server[server].showMessages)? false:true})
 		break;
 		case 'email':
 			var role = interaction.options.getRole('role')
+			if (! authorized(interaction)){
+				await interaction.reply({content: 'not authorized to config this',ephemeral:(db.server[server].showMessages)? false:true})
+				break;
+			}
 			if (role == undefined){
 				db.server[server].emailRole = undefined
-				await interaction.reply({content:'email verified role unset',ephemeral:true})
+				await interaction.reply({content:'email verified role unset',ephemeral:(db.server[server].showMessages)? false:true})
 			} else {
 				db.server[server].emailRole = role.id
-				await interaction.reply({content:`email verified role set to ${roleMention(role.id)}`,ephemeral:true})
+				await interaction.reply({content:`email verified role set to ${roleMention(role.id)}`,ephemeral:(db.server[server].showMessages)? false:true})
 			}
 		break;
+		case 'show-message':
+			if (! authorized(interaction)){
+				await interaction.reply({content: 'not authorized to config this',ephemeral:(db.server[server].showMessages)? false:true})
+				break;
+			}
+			db.server[server].showMessages = interaction.options.getBoolean('shown')
+			await interaction.reply({content:`configs updated to ${db.server[server].showMessages}`,ephemeral:(db.server[server].showMessages)? false:true})
+		break;
 		default:
-			await interaction.reply({content:`invalid command ${interaction.options.getSubcommand(true)}`,ephemeral:true})
+			await interaction.reply({content:`invalid command ${interaction.options.getSubcommand(true)}`,ephemeral:(db.server[server].showMessages)? false:true})
 		
 	}
 	fs.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
