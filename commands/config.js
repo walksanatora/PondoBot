@@ -83,7 +83,6 @@ async function func(interaction,client){
 			} else {
 				await interaction.reply({content: 'Denied, requires `Manage Server` permissions',ephemeral:true})
 			}
-			fs.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
 		break;
 		case 'current':
 			if (authorized(interaction)){
@@ -117,6 +116,7 @@ async function func(interaction,client){
 			await interaction.reply({content:`invalid command ${interaction.options.getSubcommand(true)}`,ephemeral:true})
 		
 	}
+	fs.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
 }
 
 module.exports={
