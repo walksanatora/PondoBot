@@ -59,40 +59,40 @@ function gk(user,uname) {return crypto.createHash('md5').update(`${user}${proces
 async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}
 	var user = interaction.user.id
+	var guildID = interaction.guild.id
 	if( ! has(user,Object.keys(db.user))){db.user[user] = {}}
 	switch (interaction.options.getSubcommand(true)) {
 		case 'set-grade':
 				db.user[user].grade = Number(interaction.options.getString('year',true))
-				await interaction.reply({content:`updated year to id ${db.user[user].grade}`,ephemeral:(db.server[server].showMessages)? false:true})
+				await interaction.reply({content:`updated year to id ${db.user[user].grade}`,ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
 		case 'get-grade':
-				await interaction.reply({content:`your are currently in ${noToYear[db.user[user].grade]} year`,ephemeral:(db.server[server].showMessages)? false:true})
+				await interaction.reply({content:`your are currently in ${noToYear[db.user[user].grade]} year`,ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
 		case 'get-role':
-			guildID = interaction.guild.id
 			if ( db.server[guildID].emailRole != undefined){
 				interaction.member.roles.remove(db.server[guildID].emailRole)
 				if (db.user[user].emailVerified){
 					interaction.member.roles.add(db.server[guildID].emailRole)	
 				}
 			}
-			(db.user[user].grade == null)? await interaction.reply({content:'grade not configured',ephemeral:(db.server[server].showMessages)? false:true}):null
+			(db.user[user].grade == null)? await interaction.reply({content:'grade not configured',ephemeral:(db.server[guildID].showMessages)? false:true}):null
 			if( ! has(guildID,Object.keys(db.server))) {await interaction.reply({content:'Not Setup, ask someone with `manage channels` to set it up',ephemeral:false})} else{
 				interaction.member.roles.remove(db.server[guildID].grade)
 				interaction.member.roles.add(db.server[guildID].grade[db.user[user].grade - 1])
 			}
-			await interaction.reply({content:'roles given',ephemeral:(db.server[server].showMessages)? false:true})
+			await interaction.reply({content:'roles given',ephemeral:(db.server[guildID].showMessages)? false:true})
 		break;
 		case 'verify-email':
 				if (interaction.options.getString('key') == null && interaction.options.getString('username') == null ){
-					await interaction.reply({content: 'no option specified',ephemeral:(db.server[server].showMessages)? false:true})
+					await interaction.reply({content: 'no option specified',ephemeral:(db.server[guildID].showMessages)? false:true})
 				} if (interaction.options.getString('key') != null && interaction.options.getString('username') != null ) {
-					await interaction.reply({content: 'please only specify one option',ephemeral:(db.server[server].showMessages)? false:true})
+					await interaction.reply({content: 'please only specify one option',ephemeral:(db.server[guildID].showMessages)? false:true})
 				} if (interaction.options.getString('key') != null) {
 					uname = db.user[user].email
 					console.log('checking key')
 					if (db.user[user].email == null) {
-						await interaction.reply({content:'you dont appear to have a email attached to your account',ephemeral:(db.server[server].showMessages)? false:true})
+						await interaction.reply({content:'you dont appear to have a email attached to your account',ephemeral:(db.server[guildID].showMessages)? false:true})
 						break;
 					} else {
 						const key = interaction.options.getString('key')
@@ -101,7 +101,7 @@ async function func(interaction,client){
 							await interaction.reply({content: 'Email Verified',ephemeral:true})
 						}else{
 							console.log('key mismatch got: ',key,' expected:', gk(user,uname))
-							await interaction.reply({content: 'Email verification failed',ephemeral:(db.server[server].showMessages)? false:true})
+							await interaction.reply({content: 'Email verification failed',ephemeral:(db.server[guildID].showMessages)? false:true})
 						}
 					}
 				} if (interaction.options.getString('key') == null) {
@@ -132,10 +132,10 @@ async function func(interaction,client){
 					.setColor([0,255,128])
 					.setTitle(`Information on ${interaction.options.getUser('user').tag}`)
 					.addField('Public information',message)
-				await interaction.reply({embeds: [exampleEmbed],ephemeral:(db.server[server].showMessages)? false:true})
+				await interaction.reply({embeds: [exampleEmbed],ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
 		default:
-			await interaction.reply({content:'invalid command',ephemeral:(db.server[server].showMessages)? false:true})
+			await interaction.reply({content:'invalid command',ephemeral:(db.server[guildID].showMessages)? false:true})
 	}
 	fs.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
 }
