@@ -61,7 +61,7 @@ function makeBody(to, from, subject, message) {
         "Content-Transfer-Encoding: 7bit",
         `to: ${to} "`,
         `from: ${from} "`,
-        "subject: ", subject, "\n",
+        `subject: ${subject} \n`,
         message
     ].join('\n');
 
