@@ -66,7 +66,7 @@ async function func(interaction,client){
 			if (authorized(interaction)){
 				if( ! has(server,Object.keys(db.server))){db.server[server] = {}}
 				var froshid = await getroleid('freshman-role',interaction)
-				var sophid = await getroleid('sophomore-role',interaction)
+				var sophid = await getroleid('sophmore-role',interaction)
 				var juniorid = await getroleid('junior-role',interaction)
 				var seniorid = await getroleid('senior-role',interaction)
 				var roleArray = [froshid,sophid,juniorid,seniorid]
