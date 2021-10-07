@@ -30,6 +30,14 @@ const data = new SlashCommandBuilder()
 		sub.setName('current')
 		.setDescription('prints the configs for this server')
 	)
+	.addSubcommand((sub)=>
+		sub.setName('email')
+		.setDescription('email verification config')
+		.addRoleOption((opt)=>
+			opt.setName('role')
+			.setDescription('role to give upon email verification (blank to unset)')
+		)
+	)
 
 const blank = {	
 	user: {},
@@ -94,6 +102,16 @@ async function func(interaction,client){
 				
 			}
 			await interaction.reply({embeds:[embed],ephemeral:true})
+		break;
+		case 'email':
+			var role = interaction.options.getRole('role')
+			if (role == undefined){
+				db.server[server].emailRole = undefined
+				await interaction.reply({content:'email verified role unset',ephemeral:true})
+			} else {
+				db.server[server].emailRole = role.id
+				await interaction.reply({content:`email verified role set to ${roleMention(role.id)}`,ephemeral:true})
+			}
 		break;
 		default:
 			await interaction.reply({content:`invalid command ${interaction.options.getSubcommand(true)}`,ephemeral:true})
