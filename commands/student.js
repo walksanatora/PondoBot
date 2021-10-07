@@ -70,9 +70,9 @@ async function func(interaction,client){
 			break;
 		case 'get-role':
 			if ( db.server[guildID].emailRole != undefined){
-				interaction.member.roles.remove(db.server[guildID].emailVerified)
+				interaction.member.roles.remove(db.server[guildID].emailRole)
 				if (db.user[user].emailVerified){
-					interaction.member.roles.add(db.server[guildID].emailVerified)	
+					interaction.member.roles.add(db.server[guildID].emailRole)	
 				}
 			}
 			(db.user[user].grade == null)? await interaction.reply({content:'grade not configured',ephemeral:true}):null
