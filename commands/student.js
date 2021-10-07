@@ -114,7 +114,7 @@ async function func(interaction,client){
 						'You appear to have to ran a email verification, to verify just run',
 						`<b>/students verify-email key:${key}</b>`,
 						'cant wait to see you :)'
-					].join('\n')
+					].join('<br>\n')
 					await sendMessage(OAuth2,`${uname}@eduhsd.k12.ca.us`,'your PondoBot verification',message)
 					await interaction.reply({content:`email sent to ${uname}@eduhsd.k12.ca.us by fowl21043@eduhsd.k12.ca.us`,ephemeral:true})
 				}
