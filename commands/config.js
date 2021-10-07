@@ -93,7 +93,7 @@ async function func(interaction,client){
 					.addField('current server configuration',message)
 				
 			}
-
+		break;
 		default:
 			await interaction.reply({content:`invalid command ${interaction.options.getSubcommand(true)}`,ephemeral:true})
 		
