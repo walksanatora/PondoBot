@@ -89,7 +89,7 @@ async function func(interaction,client){
 
 				var embed = new discord.MessageEmbed()
 					.setColor([0,255,128])
-					.setTitle(`Information on ${interaction.options.getUser('user').tag}`)
+					.setTitle(`Current Server Configs`)
 					.addField('current server configuration',message)
 				
 			}
