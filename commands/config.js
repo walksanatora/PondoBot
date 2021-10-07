@@ -26,7 +26,7 @@ const data = new SlashCommandBuilder()
 			)
 	)
 	.addSubcommand((sub) =>
-		sub.name('current')
+		sub.setName('current')
 		.setDescription('prints the configs for this server')
 	)
 
