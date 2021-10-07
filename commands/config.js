@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder,roleMention } = require('@discordjs/builders');
 const fs = require('fs')
 const { has,authorized } = require('../libs/util.js')
 
@@ -56,19 +56,43 @@ async function getroleid(name,interaction){
 async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}
 	server = interaction.guild.id
-	if (authorized(interaction)){
-		if( ! has(server,Object.keys(db.server))){db.server[server] = {}}
-		var froshid = await getroleid('freshman-role',interaction)
-		var sophid = await getroleid('sophomore-role',interaction)
-		var juniorid = await getroleid('junior-role',interaction)
-		var seniorid = await getroleid('senior-role',interaction)
-		var roleArray = [froshid,sophid,juniorid,seniorid]
-		db.server[server].grade = roleArray
-		await interaction.reply({content:`updated roles to <@&${froshid}>,<@&${sophid}>,<@&${juniorid}>,<@&${seniorid}>`,ephemeral:true})
-	} else {
-		await interaction.reply({content: 'Denied, requires `Manage Server` permissions',ephemeral:true})
+	switch (interaction.options.getSubcommand(true)){
+		case 'set-roles': 
+			if (authorized(interaction)){
+				if( ! has(server,Object.keys(db.server))){db.server[server] = {}}
+				var froshid = await getroleid('freshman-role',interaction)
+				var sophid = await getroleid('sophomore-role',interaction)
+				var juniorid = await getroleid('junior-role',interaction)
+				var seniorid = await getroleid('senior-role',interaction)
+				var roleArray = [froshid,sophid,juniorid,seniorid]
+				db.server[server].grade = roleArray
+				await interaction.reply({content:`updated roles to <@&${froshid}>,<@&${sophid}>,<@&${juniorid}>,<@&${seniorid}>`,ephemeral:true})
+			} else {
+				await interaction.reply({content: 'Denied, requires `Manage Server` permissions',ephemeral:true})
+			}
+			fs.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
+		break;
+		case 'current':
+			if (authorized(interaction)){
+				var messasge = [
+					'***---Roles---***',
+					`\`Freshman:\` ${roleMention(db.server[server].grade[0])}`,
+					`\`Sophmore:\` ${roleMention(db.server[server].grade[1])}`,
+					`\`Junior:\`   ${roleMention(db.server[server].grade[2])}`,
+					`\`Senior:\`   ${roleMention(db.server[server].grade[3])}`,
+				].join('\n')
+
+				var embed = new discord.MessageEmbed()
+					.setColor([0,255,128])
+					.setTitle(`Information on ${interaction.options.getUser('user').tag}`)
+					.addField('current server configuration',message)
+				
+			}
+
+		default:
+			await interaction.reply({content:'invalid command',ephemeral:true})
+		
 	}
-	fs.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
 }
 
 module.exports={
