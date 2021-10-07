@@ -80,7 +80,7 @@ async function func(interaction,client){
 		case 'current':
 			if (authorized(interaction)){
 				var message = [
-					'***---Roles---***',
+					'**---Roles---**',
 					`\`Freshman:\` ${roleMention(db.server[server].grade[0])}`,
 					`\`Sophmore:\` ${roleMention(db.server[server].grade[1])}`,
 					`\`Junior:\`   ${roleMention(db.server[server].grade[2])}`,
