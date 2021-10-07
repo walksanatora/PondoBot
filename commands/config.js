@@ -25,6 +25,10 @@ const data = new SlashCommandBuilder()
 					.setDescription('role to give to seniors')
 			)
 	)
+	.addSubcommand((sub) =>
+		sub.name('current')
+		.setDescription('prints the configs for this server')
+	)
 
 const blank = {	
 	user: {},
