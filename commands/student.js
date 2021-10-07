@@ -112,7 +112,7 @@ async function func(interaction,client){
 					const message = [
 						`Hello There ${interaction.user.tag}`,
 						'You appear to have to ran a email verification, to verify just run',
-						`/students verify-email key:${key}`,
+						`<b>/students verify-email key:${key}</b>`,
 						'cant wait to see you :)'
 					].join('\n')
 					await sendMessage(OAuth2,`${uname}@eduhsd.k12.ca.us`,'your PondoBot verification',message)

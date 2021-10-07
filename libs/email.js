@@ -59,8 +59,8 @@ function makeBody(to, from, subject, message) {
         'Content-Type: text/html; charset="UTF-8"',
         "MIME-Version: 1.0",
         "Content-Transfer-Encoding: 7bit",
-        "to: ", to, "",
-        "from: ", from, "",
+        `to: ${to} "`,
+        `from: ${from} "`,
         "subject: ", subject, "\n",
         message
     ].join('\n');
