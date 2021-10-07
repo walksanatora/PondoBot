@@ -1,6 +1,7 @@
 const { SlashCommandBuilder,roleMention } = require('@discordjs/builders');
 const fs = require('fs')
 const { has,authorized } = require('../libs/util.js')
+const discord = require('discord.js')
 
 const data = new SlashCommandBuilder()
 	.setName('config')
