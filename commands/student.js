@@ -93,11 +93,12 @@ async function func(interaction,client){
 					console.log('checking key')
 					if (db.user[user].email == null) {
 						await interaction.reply({content:'you dont appear to have a email attached to your account',ephemeral:(db.server[server].showMessages)? false:true})
+						break;
 					} else {
 						const key = interaction.options.getString('key')
 						if (key == gk(user,uname)){
 							db.user[user].emailVerified = true
-							await interaction.reply({content: 'Email Verified',ephemeral:(db.server[server].showMessages)? false:true})
+							await interaction.reply({content: 'Email Verified',ephemeral:true})
 						}else{
 							console.log('key mismatch got: ',key,' expected:', gk(user,uname))
 							await interaction.reply({content: 'Email verification failed',ephemeral:(db.server[server].showMessages)? false:true})
@@ -116,7 +117,7 @@ async function func(interaction,client){
 						'cant wait to see you :)'
 					].join('<br>\n')
 					await sendMessage(OAuth2,`${uname}@eduhsd.k12.ca.us`,'your PondoBot verification',message)
-					await interaction.reply({content:`email sent to ${uname}@eduhsd.k12.ca.us by fowl21043@eduhsd.k12.ca.us`,ephemeral:(db.server[server].showMessages)? false:true})
+					await interaction.reply({content:`email sent to ${uname}@eduhsd.k12.ca.us by fowl21043@eduhsd.k12.ca.us`,ephemeral:true})
 				}
 			break;
 		case 'lookup':
