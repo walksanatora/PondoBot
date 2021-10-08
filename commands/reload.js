@@ -50,6 +50,8 @@ async function func(interaction,client) {
 					await interaction.reply({content:'unable to restart service, service name not set in .env',ephemeral:(db.server[guildID].showMessages)? false:true})
 					break;
 				}
+				await interaction.reply({content:'reloading bot via service',ephemeral:(db.server[guildID].showMessages)? false:true})
+				await client.user.setPresence({ activities: [{ name: 'restarting' }], status: 'dnd' });
 				execSync(`sudo systemctl restart ${process.env.SERVICE}`)
 			}
 		break;
@@ -59,13 +61,13 @@ async function func(interaction,client) {
 			if (scope == undefined) {
 				require('../guildCommands.js')
 				require('../globalCommands.js')
-				await interaction.reply({content:'reloaded all commands (wait 1 hr for global to take effect)'})
+				await interaction.reply({content:'reloaded all commands (wait 1 hr for global to take effect)',ephemeral:(db.server[guildID].showMessages)? false:true})
 			} else if (scope == 'guild') {
 				require('../guildCommands.js')
-				await interaction.reply({content:'reloaded guild commands'})
+				await interaction.reply({content:'reloaded guild commands',ephemeral:(db.server[guildID].showMessages)? false:true})
 			} else {
 				require('../globalCommands.js')
-				await interaction.reply({content:'reloded global commands (wait 1 hr for it to take effect)'})
+				await interaction.reply({content:'reloded global commands (wait 1 hr for it to take effect)',ephemeral:(db.server[guildID].showMessages)? false:true})
 			}
 			
 		break;
