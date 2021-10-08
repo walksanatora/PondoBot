@@ -17,7 +17,7 @@ client.once('ready', async () => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
-	await interaction.reply({content:'fallback mode enabled, commands disabled',files:bot.log})
+	await interaction.reply({content:'fallback mode enabled, commands disabled',files:['bot.log']})
 });
 
 client.login(process.env.DISCORD_TOKEN);
