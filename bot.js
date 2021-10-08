@@ -3,7 +3,8 @@ const discord = require('discord.js')
 const { codeBlock } = require('@discordjs/builders');
 const fs = require('fs');
 const {authorize} = require('./libs/email.js')
-
+//test erroring
+process.exit(1)
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
 
 const wittyPresences = [
