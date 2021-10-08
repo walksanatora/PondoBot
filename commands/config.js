@@ -44,7 +44,7 @@ const data = new SlashCommandBuilder()
 		.addBooleanOption((opt)=>
 			opt.setName('shown')
 			.setDescription('whether commands should be shown in chat')
-			.setRequired('required')
+			.setRequired(true)
 		)
 	)
 
