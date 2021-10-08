@@ -35,22 +35,20 @@ async function authorize(credentials) {
 		console.log('Authorize this app by visiting this url:', authUrl);
         
         const code = prompt('Enter code from that page here:');
-
 		await oAuth2Client.getToken(code, (err, token) => {
 			if (err) return console.error('Error retrieving access token', err);
 			oAuth2Client.setCredentials(token);
 			// Store the token to disk for later program executions
 			fs.writeFile('token.json', JSON.stringify(token), (err) => {
 				if (err) return console.error(err);
-				console.log('Token stored to token.json');
 		  	});
-			console.log('loading from not loading from token.json')
 		});
         return oAuth2Client
 	};
-    if (token != null) {console.log('loading from token.json',token)
-    oAuth2Client.setCredentials(token);
-    return oAuth2Client}
+    if (token != null) {
+        oAuth2Client.setCredentials(token);
+        return oAuth2Client
+    }
 }
 
 
