@@ -17,7 +17,12 @@ client.once('ready', async () => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
-	await interaction.reply({content:'fallback mode enabled, commands disabled',files:['bot.log']})
+	var db = require('./storage.js')
+	if (interaction.commandName != 'reload') {
+		await interaction.reply({content:'fallback mode enabled, commands disabled',files:['bot.log'],ephemeral: (db.server[guildID].showMessages)? false:true})
+	} else {
+		await interaction.reply({content:'attempting a reload',ephemeral:(db.server[guildID].showMessages)? false:true})
+	}
 });
 
 client.login(process.env.DISCORD_TOKEN);
