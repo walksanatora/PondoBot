@@ -109,10 +109,10 @@ async function func(interaction,client){
 					}break;
 				} if (interaction.options.getString('key') == null) {
 					const uname = interaction.options.getString('username')
-					Object.keys(db.user).forEach(key => {
+					for (const key of db.user) {
 						var val = db.user[key].email 
 						if (val == uname){
-							await interaction.reply({content: (db.user[key].emailVerified)? 'email allready verified to user':'email is undergoing verification for a diffrent user'})
+							await interaction.reply({content: (db.user[key].emailVerified)? 'email allready verified to user':'email is undergoing verification for a diffrent user',ephemeral:(db.server[guildID].showMessages)? false:true})
 							break;
 						}
 					});
