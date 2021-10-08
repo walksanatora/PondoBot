@@ -17,7 +17,7 @@ client.once('ready', async () => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
-	var db = require('./storage.js')
+	var db = require('./storage.json')
 	if (interaction.commandName != 'reload') {
 		await interaction.reply({content:'fallback mode enabled, commands disabled',files:['bot.log'],ephemeral: (db.server[guildID].showMessages)? false:true})
 	} else {
