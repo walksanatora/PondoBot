@@ -116,6 +116,9 @@ async function func(interaction,client){
 							break;
 						}
 					});
+					if ( db.server[guildID].emailRole != undefined){
+						interaction.member.roles.remove(db.server[guildID].emailRole)
+					}
 					const key = gk(user,uname)
 					db.user[user].email = uname
 					db.user[user].emailVerified = false
