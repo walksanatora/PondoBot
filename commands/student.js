@@ -5,6 +5,7 @@ const fs = require('fs')
 const discord = require('discord.js')
 const crypto = require('crypto');
 const { doubleclicksearch } = require('googleapis/build/src/apis/doubleclicksearch');
+const { baremetalsolution } = require('googleapis/build/src/apis/baremetalsolution');
 
 const data = new SlashCommandBuilder()
 	.setName('students')
@@ -86,8 +87,10 @@ async function func(interaction,client){
 		case 'verify-email':
 				if (interaction.options.getString('key') == null && interaction.options.getString('username') == null ){
 					await interaction.reply({content: 'no option specified',ephemeral:(db.server[guildID].showMessages)? false:true})
+					break;
 				} if (interaction.options.getString('key') != null && interaction.options.getString('username') != null ) {
 					await interaction.reply({content: 'please only specify one option',ephemeral:(db.server[guildID].showMessages)? false:true})
+					break;
 				} if (interaction.options.getString('key') != null) {
 					uname = db.user[user].email
 					console.log('checking key')
@@ -103,10 +106,16 @@ async function func(interaction,client){
 							console.log('key mismatch got: ',key,' expected:', gk(user,uname))
 							await interaction.reply({content: 'Email verification failed',ephemeral:(db.server[guildID].showMessages)? false:true})
 						}
-					}
+					}break;
 				} if (interaction.options.getString('key') == null) {
-					console.log('sending email')
 					const uname = interaction.options.getString('username')
+					Object.keys(db.user).forEach(key => {
+						var val = db.user[key].email 
+						if (val == uname){
+							await interaction.reply({content: (db.user[key].emailVerified)? 'email allready verified to user':'email is undergoing verification for a diffrent user'})
+							break;
+						}
+					});
 					const key = gk(user,uname)
 					db.user[user].email = uname
 					db.user[user].emailVerified = false

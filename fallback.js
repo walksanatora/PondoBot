@@ -23,6 +23,7 @@ client.on('interactionCreate', async interaction => {
 		await interaction.reply({content:'fallback mode enabled, commands disabled',files:['bot.log'],ephemeral: (db.server[guildID].showMessages)? false:true})
 	} else {
 		await interaction.reply({content:'attempting a reload',ephemeral:(db.server[guildID].showMessages)? false:true})
+		process.exit(0)
 	}
 });
 
