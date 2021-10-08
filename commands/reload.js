@@ -14,10 +14,10 @@ const data = new SlashCommandBuilder()
 		.addStringOption((opt) =>
 			opt.setName('method')
 			.setDescription('the method used to reset the bot')
-			.addChoices(
+			.addChoices([
 				['service','service'],
 				['exit','exit']
-			)
+			])
 			.setRequired(true)
 		)
 	)
@@ -27,10 +27,10 @@ const data = new SlashCommandBuilder()
 		.addStringOption((opt) =>
 			opt.setName('scope')
 			.setDescription('the scope of the bot commands to load')
-			.addChoices(
+			.addChoices([
 				['guild','guild'],
 				['global','global']
-			)
+			])
 		)
 	)
 
