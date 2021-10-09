@@ -42,7 +42,22 @@ for (const file of commandFiles) {
 }
 
 client.on('messageCreate', async message => {
-	
+	var db = require('./storage.json')
+	const con = message.content.trim()
+	if (con.startsWith('p!')) {
+		con.substr(2)
+		const cmd = con.split(' ')
+		switch (cmd[0]) {
+			case 'user':
+				message.channel.send({content: db.user[cmd[1]]})
+			break;
+			case 'server':
+				message.channel.send({content: db.server[message.guild.id]})
+			break;
+			default:
+				break;
+		}
+	}
 })
 
 client.on('interactionCreate', async interaction => {
