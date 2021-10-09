@@ -45,7 +45,7 @@ client.on('messageCreate', async message => {
 	const db = require('./storage.json')
 	var con = message.content.trim()
 	if (con.startsWith('p!')) {
-		con = con.sub(2)
+		con = con.substr(2)
 		const cmd = con.split(' ')
 		console.log(cmd)
 		switch (cmd[0]) {
