@@ -50,10 +50,10 @@ client.on('messageCreate', async message => {
 		console.log(cmd)
 		switch (cmd[0]) {
 			case 'user':
-				message.channel.reply({content: JSON.stringify(db.user[cmd[1]])})
+				message.reply({content: JSON.stringify(db.user[cmd[1]])})
 			break;
 			case 'server':
-				message.channel.reply({content: JSON.stringify(db.server[message.guild.id])})
+				message.reply({content: JSON.stringify(db.server[message.guild.id])})
 			break;
 			default:
 				break;
