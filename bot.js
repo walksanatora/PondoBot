@@ -42,8 +42,8 @@ for (const file of commandFiles) {
 }
 
 client.on('messageCreate', async message => {
-	var db = require('./storage.json')
-	const con = message.content.trim()
+	const db = require('./storage.json')
+	var con = message.content.trim()
 	if (con.startsWith('p!')) {
 		con = con.sub(2)
 		const cmd = con.split(' ')
