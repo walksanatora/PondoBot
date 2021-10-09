@@ -111,7 +111,7 @@ async function func(interaction,client){
 					const uname = interaction.options.getString('username')
 					for (const key of Object.keys(db.user)) {
 						var val = db.user[key].email 
-						if (val == uname){
+						if (val == uname && key != user){
 							await interaction.reply({content: (db.user[key].emailVerified)? 'email allready verified to user':'email is undergoing verification for a diffrent user',ephemeral:(db.server[guildID].showMessages)? false:true})
 							break;
 						}
