@@ -55,7 +55,7 @@ const data = new SlashCommandBuilder()
 			)
 	)
 
-function gk(user,uname) {return crypto.createHash('md5').update(`${user}${process.env.SALT}${uname}`).digest('hex')}
+function gk(user,uname) {return crypto.createHash('sha256').update(`${user}${process.env.SALT}${uname}`).digest('hex')}
 
 async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}

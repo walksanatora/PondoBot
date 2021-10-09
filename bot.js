@@ -41,6 +41,10 @@ for (const file of commandFiles) {
 	commands[command.data.name] = command
 }
 
+client.on('messageCreate', async message => {
+	
+})
+
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
 	console.log(`Invoking /command ${interaction.commandName} from user ${interaction.user.username}`)
