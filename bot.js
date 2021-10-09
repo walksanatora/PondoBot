@@ -47,6 +47,7 @@ client.on('messageCreate', async message => {
 	if (con.startsWith('p!')) {
 		con.substr(2)
 		const cmd = con.split(' ')
+		console.log(cmd)
 		switch (cmd[0]) {
 			case 'user':
 				message.channel.send({content: db.user[cmd[1]]})
