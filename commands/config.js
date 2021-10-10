@@ -101,6 +101,7 @@ async function func(interaction,client){
 					`\`Sophmore:\` ${roleMention(db.server[server].grade[1])}`,
 					`\`Junior:\`   ${roleMention(db.server[server].grade[2])}`,
 					`\`Senior:\`   ${roleMention(db.server[server].grade[3])}`,
+					`\`email:\`    ${roleMention(db.server[server].emailRole)}`,
 					'**---Other---**',
 					`\`showMessages:\` ${(db.server[server].showMessages)? true:false}`
 				].join('\n')
