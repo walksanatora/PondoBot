@@ -35,7 +35,7 @@ async function authorize(credentials) {
 		console.log('Authorize this app by visiting this url:', authUrl);
         
         const code = prompt('Enter code from that page here:');
-		const token = await oAuth2Client.getToken(code)
+		const token = await (await oAuth2Client.getToken(code)).tokens
         console.log(token)
 		oAuth2Client.setCredentials(token);
 		fs.writeFile('token.json', JSON.stringify(token), (err) => {
