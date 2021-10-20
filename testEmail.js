@@ -5,7 +5,7 @@ async function main(){
 	const message = [
 		`Hello There walksanator`,
 		'You appear to have to ran a email verification, to verify just run',
-		`<b><i>/students verify-email key:INSERT_KEY_HERE</i></b>`,
+		`<b>/students verify-email key:INSERT_KEY_HERE</b>`,
 		'cant wait to see you :)'
 	].join('<br>\n')
 	console.log(OAuth2)
