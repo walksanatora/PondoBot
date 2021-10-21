@@ -101,6 +101,8 @@ async function func(interaction,client){
 				}
 			}
 			console.log('caching finished')
+			fs.writeFileSync('cache.json',JSON.stringify(cache),'utf-8')
+			console.log('written cache to file')
 			const embd = new discord.MessageEmbed()
 				.setColor([0,255,128])
 				.setTitle('A full list of your classes')
@@ -110,7 +112,8 @@ async function func(interaction,client){
 				if (cache.user[clas.ownerId] == undefined || interaction.options.getBoolean('cache')){
 					var teacher = await classroom.getTeacher(OAAuth,clas.id,clas.ownerId)
 					cache.user[clas.ownerId] = teacher
-					console.log('added',teacher.name.fullName,'to cache')
+					console.log('added',teacher.name.fullName,'to cache, and written')
+					fs.writeFileSync('cache.json',JSON.stringify(cache),'utf-8')
 				}
 				var teacher = cache.user[clas.ownerId]
 				var content = [
