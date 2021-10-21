@@ -97,7 +97,7 @@ async function func(interaction,client){
 				console.log(activeIDs)
 				//this amalgamates the classes toghether instead of just overwriting them
 				for (let i = 0;i<activeIDs.length;i++){
-					v = activeIDs[i]
+					v = active[activeIDs[i]]
 					cache.class[v.id] = v
 					console.log('cached',v)
 				}
