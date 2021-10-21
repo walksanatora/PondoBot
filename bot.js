@@ -101,12 +101,18 @@ client.on('interactionCreate', async interaction => {
 			.setTitle('Error occured')
 			.addField(error.toString(),`\`\`\`${error.stack}\`\`\``)
 		console.log(error.stack)
-		try{
-			//send the error 
-			await interaction.reply({embeds: [exampleEmbed],ephemeral: (db.server[guildID].showMessages)? false:true})
-		} catch (error) {
-			//incase we allready deferedReply, inwich case ephemeral has allready been set
-			await interaction.editReply({embeds: [exampleEmbed]})
+		try {
+			if (interaction.replied){
+				interaction.editReply({embeds:[exampleEmbed]})
+			} else {
+				interaction.reply({embeds: [exampleEmbed],ephemeral: (db.server[guildID].showMessages)? false:true})
+			}
+		} catch (err) {
+			if (interaction.replied) {
+				interaction.editReply(error.toString())
+			} else {
+				interaction.reply({content: error.toString(),ephemeral: (db.server[guildID].showMessages)? false:true})
+			}
 		}
 	}
 });
