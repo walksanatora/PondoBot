@@ -95,6 +95,8 @@ client.on('interactionCreate', async interaction => {
 	try {
 		await commands[interaction.commandName].function(interaction,client)	
 	} catch (error) {
+		const db = require('./storage.json')
+		const guildID = interaction.guild.id
 		console.log('ERROR OCCURRED OHNO!!!')
 		const exampleEmbed = new discord.MessageEmbed()
 			.setColor('#ff0000')
