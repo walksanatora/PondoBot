@@ -63,12 +63,14 @@ client.on('messageCreate', async message => {
 			break;
 			case 'logs':
 				message.reply({content:'bot logs',files:['bot.log']})
+				break;
 			case 'slogs':
 				if (process.env.SERVICE == undefined){
 					await message.reply({content:'service not found'})
 					break;
 				}
 				message.reply({content:'systemctl logs',files:[{attachment: execSync('journalctl -xe | grep bot-loop.sh'),name:'slogs.txt'}]})
+				break;
 			case 'dmp':
 				if (message.author.id == '596098777941540883'){
 					if (message.author.dmChannel == undefined){
