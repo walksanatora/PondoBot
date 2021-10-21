@@ -36,7 +36,7 @@ async function authorize(credentials,code) {
 		return authUrl
     } else if (typeof code == 'string'){
 		const token = await (await oAuth2Client.getToken(code)).tokens
-		oAuth2Client.setCredentials(code)
+		oAuth2Client.setCredentials(token)
 		return [token,oAuth2Client]
 	}
 }
