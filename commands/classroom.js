@@ -91,7 +91,7 @@ async function func(interaction,client){
 					}
 				}
 				db.user[userID].CACHECLASS = activeIDs
-				for (let i = 0;index<activeIDs.length;i++){
+				for (let i = 0;i<activeIDs.length;i++){
 					v = activeIDs[i]
 					cache.class[v.id] = v
 				}
