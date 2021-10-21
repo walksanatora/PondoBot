@@ -87,6 +87,7 @@ async function func(interaction,client){
 			const embd = new discord.MessageEmbed()
 				.setColor([0,255,128])
 				.setTitle('A full list of your classes')
+			var tmp = false
 			for (const element of Object.keys(db.user[userID].CACHECLASS)){
 				command = db.user[userID].CACHECLASS[element]
 				var teacher = await classroom.getTeacher(OAAuth,command.id,command.ownerId)
@@ -97,7 +98,8 @@ async function func(interaction,client){
 					`Email: ${teacher.emailAddress}`,
 					`Link: [Here](${command.alternateLink})`
 				].join('\n')
-				embd.addField(command.name,content,true)
+				tmp = !tmp
+				embd.addField(command.name,content,tmp)
 			};
 			await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
