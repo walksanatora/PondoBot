@@ -77,12 +77,13 @@ client.on('interactionCreate', async interaction => {
 		const exampleEmbed = new discord.MessageEmbed()
 			.setColor('#ff0000')
 			.setTitle('Error occured')
-			.addField('Excpetion',error.toString())
+			.addField(error.toString(),`\`\`\`${error.stack}\`\`\``)
 		console.log(error.stack)
 		try{
+			//send the error 
 			await interaction.reply({embeds: [exampleEmbed],ephemeral: (db.server[guildID].showMessages)? false:true})
 		} catch (error) {
-			//incase we allready deferedReply
+			//incase we allready deferedReply, inwich case ephemeral has allready been set
 			await interaction.editReply({embeds: [exampleEmbed]})
 		}
 	}
