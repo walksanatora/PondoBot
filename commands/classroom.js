@@ -20,6 +20,10 @@ const data = new SlashCommandBuilder()
 	.addSubcommand((sub)=>
 		sub.setName('classes')
 		.setDescription('list your classes')
+		.addBooleanOption((opt)=>
+			opt.setName('cache')
+			.setDescription('whether or not to force invalidate the cache and overwrite it')
+		)
 	)
 
 async function func(interaction,client){ 
@@ -67,8 +71,15 @@ async function func(interaction,client){
 		case 'classes':
 			if (db.user[userID].auth == undefined){await interaction.reply({content: 'not linked yet',ephemeral:(db.server[guildID].showMessages)? false:true});break}
 			var OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
-			if (db.user[userID].CACHECLASS == undefined){
-				db.user[userID].CACHECLASS = await classroom.getClasses(OAAuth)
+			if (db.user[userID].CACHECLASS == undefined || interaction.options.getBoolean('cache')){
+				var array = (await classroom.getClasses(OAAuth)).courses
+				var active = []
+				for (let index = 0; index < array.length; index++) {
+					if (array[index].courseState == 'ACTIVE'){
+						active.push(array[index])
+					}
+				}
+				db.user[userID].CACHECLASS = active
 			}
 			console.log(db.user[userID].CACHECLASS)
 			await interaction.reply({content:'indev',ephemeral:(db.server[guildID].showMessages)? false:true})
