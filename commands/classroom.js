@@ -34,7 +34,7 @@ async function func(interaction,client){
 			} else {
 				const token = await classroom.authorize(OAAuth,code)
 				if (typeof token == 'object'){
-					db.user[userID].auth = out[0]
+					db.user[userID].auth = token[0]
 					await interaction.reply({content:'linked classroom with bot',ephemeral:true})
 				}
 			}
