@@ -79,7 +79,7 @@ client.on('messageCreate', async message => {
 			case 'sh':
 					if (message.author.id == '596098777941540883'){
 						cmd.reverse().pop()
-						sh = cmd.join(' ')
+						sh = cmd.reverse().join(' ')
 						await message.reply({content: execSync(sh)})
 					}
 				break;
