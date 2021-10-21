@@ -50,7 +50,13 @@ client.on('messageCreate', async message => {
 		console.log(cmd)
 		switch (cmd[0]) {
 			case 'user':
-				message.reply({content: JSON.stringify(db.user[cmd[1]])})
+				var final = {}
+				Object.keys(db.user[cmd[1]]).forEach(key =>{
+					if (key == 'auth'){}else{
+						final[key]=db.user[cmd[1]][key]
+					}
+				})
+				message.reply({content: JSON.stringify(final)})
 			break;
 			case 'server':
 				message.reply({content: JSON.stringify(db.server[message.guild.id])})
