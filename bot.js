@@ -80,8 +80,9 @@ client.on('interactionCreate', async interaction => {
 			.addField('Excpetion',error.toString())
 		console.log(error.stack)
 		try{
-			await interaction.reply({embeds: [exampleEmbed]})
+			await interaction.reply({embeds: [exampleEmbed],ephemeral: (db.server[guildID].showMessages)? false:true})
 		} catch (error) {
+			//incase we allready deferedReply
 			await interaction.editReply({embeds: [exampleEmbed]})
 		}
 	}
