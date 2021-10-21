@@ -26,7 +26,7 @@ async function func(interaction,client){
 	const db = require('../storage.json')
 	const guildID = interaction.guild.id
 	const userID = interaction.user.id
-	const OAAuth = require('../clsAuth.json')
+	var OAAuth = require('../clsAuth.json')
 	switch (interaction.options.getSubcommand(true)) {
 		case 'link':
 			const code = interaction.options.getString('code')
@@ -66,7 +66,7 @@ async function func(interaction,client){
 			break;
 		case 'classes':
 			if (db.user[userID].auth == undefined){await interaction.reply({content: 'not linked yet',ephemeral:(db.server[guildID].showMessages)? false:true});break}
-			OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
+			var OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
 			if (db.user[userID].CACHECLASS == undefined){
 				db.user[userID].CACHECLASS = await classroom.getClasses(OAAuth)
 			}
