@@ -116,7 +116,7 @@ async function func(interaction,client){
 					`Email: ${teacher.emailAddress}`,
 					`Link: [Here](${clas.alternateLink})`
 				].join('\n')
-				embd.addField(teacher.name,content)
+				embd.addField(teacher.name.fullName,content)
 			}
 			console.log('editing reply, embed finished')
 			await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
