@@ -17,6 +17,10 @@ const data = new SlashCommandBuilder()
 		sub.setName('unlink')
 		.setDescription('removes the api keys from storage (also marks email as unverified)')
 	)
+	.addSubcommand((sub)=>
+		sub.setName('classes')
+		.setDescription('list your classes')
+	)
 
 async function func(interaction,client){ 
 	const db = require('../storage.json')
@@ -59,6 +63,15 @@ async function func(interaction,client){
 				db.user[userID].emailVerified = false
 				await interaction.reply({content:'unlinked information',ephemeral:(db.server[guildID].showMessages)? false:true})
 			}
+			break;
+		case 'classes':
+			if (db.user[userID].auth == undefined){await interaction.reply({content: 'not linked yet',ephemeral:(db.server[guildID].showMessages)? false:true});break}
+			OAAuth.setCredentials(db.user[userID].auth)
+			if (db.user[userID].CACHECLASS == undefined){
+				db.user[userID].CACHECLASS = await classroom.getClasses(OAAuth)
+			}
+			console.log(db.user[userID].CACHECLASS)
+			await interaction.reply({content:'indev',ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
 		default:
 			await interaction.reply({content:'invalid command',ephemeral:(db.server[guildID].showMessages)? false:true})
