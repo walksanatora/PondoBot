@@ -91,14 +91,13 @@ async function func(interaction,client){
 			for (const element of Object.keys(db.user[userID].CACHECLASS)){
 				command = db.user[userID].CACHECLASS[element]
 				var teacher = await classroom.getTeacher(OAAuth,command.id,command.ownerId)
-				console.log(command.ownerId)
-				console.log(teacher)
 				var content = [
 					`Teacher: ${teacher.name.fullName}`,
 					`Email: ${teacher.emailAddress}`,
 					`Link: [Here](${command.alternateLink})`
 				].join('\n')
 				tmp = !tmp
+				console.log(tmp)
 				embd.addField(command.name,content,tmp)
 			};
 			await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
