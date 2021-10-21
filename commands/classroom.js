@@ -89,6 +89,7 @@ async function func(interaction,client){
 			for (const element of Object.keys(db.user[userID].CACHECLASS)){
 				command = db.user[userID].CACHECLASS[element]
 				var teacher = await classroom.getUser(OAAuth,command.ownerId)
+				console.log(teacher)
 				embd.addField(command.name,teacher)
 			};
 			await interaction.reply({content:'indev',ephemeral:(db.server[guildID].showMessages)? false:true,embeds: [embd]})
