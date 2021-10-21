@@ -70,6 +70,7 @@ async function func(interaction,client){
 			}
 			break;
 		case 'classes':
+			interaction.deferReply({ephemeral:(db.server[guildID].showMessages)? false:true})
 			if (db.user[userID].auth == undefined){await interaction.reply({content: 'not linked yet',ephemeral:(db.server[guildID].showMessages)? false:true});break}
 			var OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
 			if (db.user[userID].CACHECLASS == undefined || interaction.options.getBoolean('cache')){
