@@ -99,7 +99,7 @@ async function func(interaction,client){
 				].join('\n')
 				embd.addField(command.name,teacher.name.fullName)
 			};
-			await interaction.editReply({content: 'ohno',ephemeral:(db.server[guildID].showMessages)? false:true})
+			await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
 		default:
 			await interaction.reply({content:'invalid command',ephemeral:(db.server[guildID].showMessages)? false:true})
