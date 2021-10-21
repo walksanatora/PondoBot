@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const classroom = require('../libs/classroom.js')
 const fs = require('fs')
+const discord = require('discord.js')
 
 const data = new SlashCommandBuilder()
 	.setName('classroom')
@@ -82,7 +83,15 @@ async function func(interaction,client){
 				db.user[userID].CACHECLASS = active
 			}
 			console.log(db.user[userID].CACHECLASS)
-			await interaction.reply({content:'indev',ephemeral:(db.server[guildID].showMessages)? false:true})
+			const embd = new discord.MessageEmbed()
+				.setColor([0,255,128])
+				.setTitle('A full list of your classes')
+			Object.keys(db.user[userID].CACHECLASS).forEach(element => {
+				command = db.user[userID].CACHECLASS[element]
+				var teacher = await classroom.getUser(OAAuth,command.ownerId)
+				embd.addField(command.name,teacher)
+			});
+			await interaction.reply({content:'indev',ephemeral:(db.server[guildID].showMessages)? false:true,embeds: [embd]})
 			break;
 		default:
 			await interaction.reply({content:'invalid command',ephemeral:(db.server[guildID].showMessages)? false:true})
