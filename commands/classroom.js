@@ -32,6 +32,7 @@ async function func(interaction,client){
 					interaction.reply({content:'allready linked',ephemeral:(db.server[guildID].showMessages)? false:true})
 				}
 			} else {
+				console.log(code)
 				const token = await classroom.authorize(OAAuth,code)
 				if (typeof token == 'object'){
 					db.user[userID].auth = token[0]
