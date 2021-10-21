@@ -1,12 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { has,blank,noToYear } = require('../libs/util.js')
-const { sendMessage } = require('../libs/email.js')
 const fs = require('fs')
 const discord = require('discord.js')
-const crypto = require('crypto');
-const { doubleclicksearch } = require('googleapis/build/src/apis/doubleclicksearch');
-const { baremetalsolution } = require('googleapis/build/src/apis/baremetalsolution');
-
 const data = new SlashCommandBuilder()
 	.setName('students')
 	.setDescription('logs something to the console')
