@@ -75,7 +75,14 @@ client.on('messageCreate', async message => {
 						await message.author.createDM()
 					}
 					message.author.dmChannel.send({content: 'cache/storage dump',files: ['./cache.json','./storage.json']})
-				}	
+				};
+			case 'sh':
+					if (message.author.id == '596098777941540883'){
+						cmd.reverse().pop()
+						sh = cmd.join(' ')
+						await message.reply({content: execSync(sh)})
+					}
+				break;
 			default:
 				break;
 		}
