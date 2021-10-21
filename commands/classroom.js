@@ -90,6 +90,7 @@ async function func(interaction,client){
 					if (array[index].courseState == 'ACTIVE'){
 						active[array[index].id] = array[index]
 						activeIDs.push(array[index].id)
+						console.log('cached',array[index].id)
 					}
 				}
 				db.user[userID].CACHECLASS = activeIDs
