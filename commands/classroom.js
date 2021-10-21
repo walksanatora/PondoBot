@@ -35,8 +35,15 @@ async function func(interaction,client){
 				console.log(code)
 				const token = await classroom.authorize(OAAuth,code)
 				if (typeof token == 'object'){
-					db.user[userID].auth = token[0]
-					await interaction.reply({content:'linked classroom with bot',ephemeral:true})
+					const email = await classroom.getEmail(token[1])
+					if (email.endsWith('@eduhsd.k12.ca.us')){
+						db.user[userID].auth = token[0]
+						db.user[userID].email = email.substr(1,email.length-17)
+						db.user[userID].emailVerified = true
+						await interaction.reply({content:'linked classroom with bot',ephemeral:true})
+					} else {
+						await interaction.reply({content:'unable to link, email not apart of eduhsd'})
+					}
 				}
 			}
 			break;
