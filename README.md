@@ -5,7 +5,7 @@
 
 # Features
 
-random [Presences](/bot.js#L6-L12) whenever the bot starts<br>
+random [Presences](/bot.js#L10-L16) whenever the bot starts<br>
 some [Commands](#commands)
 
 ## commands
@@ -15,7 +15,7 @@ sends a ephermiral (hidden from other users) embed containg command names and he
 
 ### reload
 a command used by any whitelisted user (see [here](libs/util.js#L15))
-* `bot` reloads the bot via one of two methods<br>
+* `bot` reloads the bot via one of two methods (`exit` or `service`(requires a env var set))<br>
 * `commands` reloads `global` or `guild` commands (or all if no scope is specified)<br>
 
 ### classroom
