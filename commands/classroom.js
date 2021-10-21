@@ -83,8 +83,9 @@ async function func(interaction,client){
 			if (db.user[userID].CACHECLASS == undefined || interaction.options.getBoolean('cache')){
 				console.log('over-writing cache')
 				var array = (await classroom.getClasses(OAAuth)).courses
-				var active = {}
-				var activeIDs = []
+				var active = {} //data to be joined to the cache, key == id
+				var activeIDs = [] //ids to be stored to the user
+				//only read classes that are ACTIVE
 				for (let index = 0; index < array.length; index++) {
 					if (array[index].courseState == 'ACTIVE'){
 						active[array[index].id] = array[index]
@@ -92,6 +93,7 @@ async function func(interaction,client){
 					}
 				}
 				db.user[userID].CACHECLASS = activeIDs
+				//this amalgamates the classes toghether instead of just overwriting them
 				for (let i = 0;i<activeIDs.length;i++){
 					v = activeIDs[i]
 					cache.class[v.id] = v
@@ -102,13 +104,18 @@ async function func(interaction,client){
 				.setColor([0,255,128])
 				.setTitle('A full list of your classes')
 			var tmp = false
-			for (const element of Object.keys(db.user[userID].CACHECLASS)){
-				command = cache.class[element]
-				var teacher = await classroom.getTeacher(OAAuth,command.id,command.ownerId)
+			for (const i of Object.keys(db.user[userID].CACHECLASS)){
+				clas = cache.class[db.user[userID].CACHECLASS[i]]
+				if (cache.user[clas.ownerId] == undefined || interaction.options.getBoolean('cache')){
+					var teacher = await classroom.getTeacher(OAAuth,clas.id,clas.ownerId)
+					cache.user[clas.ownerId] = teacher
+					console.log('added',teacher.name.fullName,'to cache')
+				}
+				var teacher = cache.user[clas.ownerId]
 				var content = [
 					`Teacher: ${teacher.name.fullName}`,
 					`Email: ${teacher.emailAddress}`,
-					`Link: [Here](${command.alternateLink})`
+					`Link: [Here](${clas.alternateLink})`
 				].join('\n')
 				tmp = !tmp
 				console.log(tmp)
