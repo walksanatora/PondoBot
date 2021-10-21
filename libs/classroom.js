@@ -2,7 +2,6 @@ const fs = require('fs');
 const {google} = require('googleapis');
 console.log('loading classroom module')
 
-// If modifying these scopes, delete token.json.
 var SCOPES = [
     'https://www.googleapis.com/auth/classroom.courses.readonly',
     'https://www.googleapis.com/auth/classroom.rosters.readonly',
@@ -20,7 +19,7 @@ var SCOPES = [
  * @param {Object} credentials The authorization client credentials.
  * @return {Object} what is being returned OAuth client/auth url
  */
-async function authorize(credentials,token) {
+async function authorize(credentials,code) {
   const {client_secret, client_id, redirect_uris} = credentials.installed;
   const oAuth2Client = new google.auth.OAuth2(
       client_id,
@@ -28,26 +27,17 @@ async function authorize(credentials,token) {
 	  redirect_uris[0]
 	);
 
-  // Check if we have previously stored a token.
- 	if (typeof token == 'undefined'){
+  // Check if we have previously stored a code.
+ 	if (typeof code == 'undefined'){
 			const authUrl = oAuth2Client.generateAuthUrl({
 			access_type: 'offline',
 			scope: SCOPES,
 		});
 		return authUrl
-	} else if (typeof token == 'object') {
-        oAuth2Client.setCredentials(token);
-        return oAuth2Client
-    } else if (typeof token == 'string'){
-		const code = await (await oAuth2Client.getToken(token)).tokens
-		console.log(code)
-		oAuth2Client.setCredentials(code);
-		// Store the token to disk for later program executions
-		await fs.writeFile('token.json', JSON.stringify(code), (err) => {
-			if (err) return console.error(err);
-			console.log('written')
-		});
-		return oAuth2Client
+    } else if (typeof code == 'string'){
+		const token = await (await oAuth2Client.getcode(code)).tokens
+		oAuth2Client.setCredentials(code)
+		return [token,oAuth2Client]
 	}
 }
 
