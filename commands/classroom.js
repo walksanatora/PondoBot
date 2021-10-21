@@ -81,6 +81,7 @@ async function func(interaction,client){
 			var OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
 			console.log('checking cache usage')
 			if (db.user[userID].CACHECLASS == undefined || interaction.options.getBoolean('cache')){
+				console.log('over-writing cache')
 				var array = (await classroom.getClasses(OAAuth)).courses
 				var active = {}
 				var activeIDs = []
