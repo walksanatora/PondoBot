@@ -36,6 +36,9 @@ async function authorize(credentials,code) {
 		const token = (await oAuth2Client.getToken(code)).tokens
 		oAuth2Client.setCredentials(token)
 		return [token,oAuth2Client]
+	} else if (typeof code == 'object'){
+		oAuth2Client.setCredentials(code)
+		return oAuth2Client
 	}
 }
 

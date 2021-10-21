@@ -66,7 +66,7 @@ async function func(interaction,client){
 			break;
 		case 'classes':
 			if (db.user[userID].auth == undefined){await interaction.reply({content: 'not linked yet',ephemeral:(db.server[guildID].showMessages)? false:true});break}
-			OAAuth.setCredentials(db.user[userID].auth)
+			OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
 			if (db.user[userID].CACHECLASS == undefined){
 				db.user[userID].CACHECLASS = await classroom.getClasses(OAAuth)
 			}
