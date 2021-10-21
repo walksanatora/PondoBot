@@ -68,7 +68,7 @@ client.on('messageCreate', async message => {
 					await message.reply({content:'service not found'})
 					break;
 				}
-				message.reply({content:'systemctl logs',files:[execSync('journalctl -xe | grep bot-loop.sh')]})
+				message.reply({content:'systemctl logs',files:[{attachment: execSync('journalctl -xe | grep bot-loop.sh'),name:'slogs.txt'}]})
 			default:
 				break;
 		}
