@@ -2,6 +2,8 @@ require('dotenv').config()
 const discord = require('discord.js')
 const { codeBlock } = require('@discordjs/builders');
 const fs = require('fs');
+const { execSync } = require("child_process");
+
 
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
 
@@ -60,7 +62,13 @@ client.on('messageCreate', async message => {
 				message.reply({content: JSON.stringify(db.server[message.guild.id])})
 			break;
 			case 'logs':
-				message.reply({content:'fallback mode enabled, commands disabled',files:['bot.log']})
+				message.reply({content:'bot logs',files:['bot.log']})
+			case 'slogs':
+				if (process.env.SERVICE == undefined){
+					await message.reply({content:'service not found'})
+					break;
+				}
+				message.reply({content:'systemctl logs',files:[execSync('journalctl -xe | grep bot-loop.sh')]})
 			default:
 				break;
 		}

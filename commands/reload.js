@@ -1,7 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { execSync } = require("child_process");
 const discord = require('discord.js')
-const os = require('os');
 const { exit } = require('process');
 const { authorized,blank } = require('../libs/util.js')
 
