@@ -86,7 +86,7 @@ async function func(interaction,client){
 			const embd = new discord.MessageEmbed()
 				.setColor([0,255,128])
 				.setTitle('A full list of your classes')
-			for (const element of Object.keys(db.user[userID.CACHECLASS])){
+			for (const element of Object.keys(db.user[userID].CACHECLASS)){
 				command = db.user[userID].CACHECLASS[element]
 				var teacher = await classroom.getUser(OAAuth,command.ownerId)
 				embd.addField(command.name,teacher)
