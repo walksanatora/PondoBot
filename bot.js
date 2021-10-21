@@ -2,7 +2,6 @@ require('dotenv').config()
 const discord = require('discord.js')
 const { codeBlock } = require('@discordjs/builders');
 const fs = require('fs');
-const {authorize} = require('./libs/email.js')
 
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
 
@@ -21,7 +20,6 @@ SALT: a random string used for ofsetting the encryption used in email verificati
 */
 
 client.once('ready', async () => {
-	global.OAuth2 = await authorize(require('./credentials.json'))
 	console.log(`Bot is logged in and ready! with tag ${client.user.tag}`);
 	client.user.setPresence({ activities: [{ name: wittyPresences[Math.floor(Math.random()*wittyPresences.length)] }], status: 'online' })
 	setInterval(
@@ -38,7 +36,7 @@ const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
-	commands[command.data.name] = command
+	global.commands[command.data.name] = command
 }
 
 client.on('messageCreate', async message => {
@@ -51,8 +49,8 @@ client.on('messageCreate', async message => {
 		switch (cmd[0]) {
 			case 'user':
 				var final = {}
-				Object.keys(db.user[cmd[1]]).forEach(key =>{
-					if (['auth','CACHECLASS'].includes(key)){}else{
+				Object.keys(db.user[cmd[1]]).forEach(key => {
+					if (!['auth','CACHECLASS'].includes(key)){
 						final[key]=db.user[cmd[1]][key]
 					}
 				})
