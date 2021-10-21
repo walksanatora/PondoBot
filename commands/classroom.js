@@ -76,8 +76,10 @@ async function func(interaction,client){
 			break;
 		case 'classes':
 			interaction.deferReply({ephemeral:(db.server[guildID].showMessages)? false:true})
+			console.log('defering reply')
 			if (db.user[userID].auth == undefined){await interaction.editReply({content: 'not linked yet',ephemeral:(db.server[guildID].showMessages)? false:true});break}
 			var OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
+			console.log('checking cache usage')
 			if (db.user[userID].CACHECLASS == undefined || interaction.options.getBoolean('cache')){
 				var array = (await classroom.getClasses(OAAuth)).courses
 				var active = {}
@@ -94,6 +96,7 @@ async function func(interaction,client){
 					cache.class[v.id] = v
 				}
 			}
+			console.log('caching finished')
 			const embd = new discord.MessageEmbed()
 				.setColor([0,255,128])
 				.setTitle('A full list of your classes')
@@ -110,6 +113,7 @@ async function func(interaction,client){
 				console.log(tmp)
 				embd.addField(command.name,content,tmp)
 			};
+			console.log('editing reply, embed finished')
 			await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
 		default:

@@ -79,7 +79,11 @@ client.on('interactionCreate', async interaction => {
 			.setTitle('Error occured')
 			.addField('Excpetion',error.toString())
 		console.log(error.stack)
-		await interaction.reply({embeds: [exampleEmbed]})
+		try{
+			await interaction.reply({embeds: [exampleEmbed]})
+		} catch (error) {
+			await interaction.editReply({embeds: [exampleEmbed]})
+		}
 	}
 });
 
