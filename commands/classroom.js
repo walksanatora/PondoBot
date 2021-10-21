@@ -91,7 +91,12 @@ async function func(interaction,client){
 				var teacher = await classroom.getTeacher(OAAuth,command.id,command.ownerId)
 				console.log(command.ownerId)
 				console.log(teacher)
-				embd.addField(command.name,teacher)
+				var content = [
+					`Teacher: ${teacher.name.fullName}`,
+					`Email: ${teacher.emailAddress}`,
+					`Link: [Here](${command.alternateLink})`
+				].join('\n')
+				embd.addField(command.name,teacher.name.fullName)
 			};
 			await interaction.reply({content:'indev',ephemeral:(db.server[guildID].showMessages)? false:true,embeds: [embd]})
 			break;
