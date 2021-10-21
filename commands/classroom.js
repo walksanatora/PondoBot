@@ -125,7 +125,7 @@ async function func(interaction,client){
 					`Link: [Here](${clas.alternateLink})`
 				].join('\n')
 				console.log(tmp)
-				embd.addField(command.name,content,tmp)
+				embd.addField(command.name,content)
 			}
 			console.log('editing reply, embed finished')
 			await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
