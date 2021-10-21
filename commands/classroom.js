@@ -50,7 +50,7 @@ async function func(interaction,client){
 					const email = await classroom.getEmail(token[1])
 					if (email.endsWith('@eduhsd.k12.ca.us')){
 						db.user[userID].auth = token[0]
-						db.user[userID].email = email.substr(1,email.length-17)
+						db.user[userID].email = email.substr(0,email.length-18)
 						db.user[userID].emailVerified = true
 						await interaction.reply({content:'linked classroom with bot',ephemeral:true})
 					} else {
