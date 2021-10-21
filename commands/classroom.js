@@ -76,10 +76,8 @@ async function func(interaction,client){
 			break;
 		case 'classes':
 			interaction.deferReply({ephemeral:(db.server[guildID].showMessages)? false:true})
-			console.log('defering reply')
 			if (db.user[userID].auth == undefined){await interaction.editReply({content: 'not linked yet',ephemeral:(db.server[guildID].showMessages)? false:true});break}
 			var OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
-			console.log('checking cache usage')
 			if (db.user[userID].CACHECLASS == undefined || interaction.options.getBoolean('cache')){
 				console.log('over-writing cache')
 				var array = (await classroom.getClasses(OAAuth)).courses
@@ -102,10 +100,6 @@ async function func(interaction,client){
 					console.log('cached',v)
 				}
 			}
-			console.log('caching finished')
-			console.log(cache)
-			fs.writeFileSync('cache.json',JSON.stringify(cache),'utf-8')
-			console.log('written cache to file')
 			const embd = new discord.MessageEmbed()
 				.setColor([0,255,128])
 				.setTitle('A full list of your classes')
@@ -115,8 +109,6 @@ async function func(interaction,client){
 				if (cache.user[clas.ownerId] == undefined || interaction.options.getBoolean('cache')){
 					var teacher = await classroom.getTeacher(OAAuth,clas.id,clas.ownerId)
 					cache.user[clas.ownerId] = teacher
-					console.log('added',teacher.name.fullName,'to cache, and written')
-					fs.writeFileSync('cache.json',JSON.stringify(cache),'utf-8')
 				}
 				var teacher = cache.user[clas.ownerId]
 				var content = [
@@ -124,7 +116,6 @@ async function func(interaction,client){
 					`Email: ${teacher.emailAddress}`,
 					`Link: [Here](${clas.alternateLink})`
 				].join('\n')
-				console.log(tmp)
 				embd.addField(command.name,content)
 			}
 			console.log('editing reply, embed finished')
