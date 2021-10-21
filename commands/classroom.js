@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
+const { blank } = require('../libs/util.js')
 const classroom = require('../libs/classroom.js')
 const fs = require('fs')
 const discord = require('discord.js')
@@ -28,7 +29,11 @@ const data = new SlashCommandBuilder()
 	)
 
 async function func(interaction,client){ 
-	const db = require('../storage.json')
+	try{var db = require('../storage.json')}catch (error){db = blank}
+	try{var cache = require('../cache.json')}catch (error){cache = {
+		class: {},
+		user: {}
+	}}
 	const guildID = interaction.guild.id
 	const userID = interaction.user.id
 	var OAAuth = require('../clsAuth.json')
@@ -75,21 +80,26 @@ async function func(interaction,client){
 			var OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
 			if (db.user[userID].CACHECLASS == undefined || interaction.options.getBoolean('cache')){
 				var array = (await classroom.getClasses(OAAuth)).courses
-				var active = []
+				var active = {}
+				var activeIDs = []
 				for (let index = 0; index < array.length; index++) {
 					if (array[index].courseState == 'ACTIVE'){
-						active.push(array[index])
+						active[array[index].id] = array[index]
+						activeIDs.push(array[index].id)
 					}
 				}
-				db.user[userID].CACHECLASS = active
+				db.user[userID].CACHECLASS = activeIDs
+				for (let i = 0;index<activeIDs.length;i++){
+					v = activeIDs[i]
+					cache.class[v.id] = v
+				}
 			}
-			console.log(db.user[userID].CACHECLASS)
 			const embd = new discord.MessageEmbed()
 				.setColor([0,255,128])
 				.setTitle('A full list of your classes')
 			var tmp = false
 			for (const element of Object.keys(db.user[userID].CACHECLASS)){
-				command = db.user[userID].CACHECLASS[element]
+				command = cache.class[element]
 				var teacher = await classroom.getTeacher(OAAuth,command.id,command.ownerId)
 				var content = [
 					`Teacher: ${teacher.name.fullName}`,
@@ -106,6 +116,7 @@ async function func(interaction,client){
 			await interaction.reply({content:'invalid command',ephemeral:(db.server[guildID].showMessages)? false:true})
 		}
 	fs.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
+	fs.writeFileSync('cache.json',JSON.stringify(cache),'utf-8')
 }
 
 module.exports={
