@@ -8,8 +8,6 @@ lerna-debug.log*
 .pnpm-debug.log*
 
 # Private stuff
-credentials.json
-token.json
 cache.json
 clsAuth.json
 
