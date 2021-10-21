@@ -69,6 +69,10 @@ client.on('messageCreate', async message => {
 					break;
 				}
 				message.reply({content:'systemctl logs',files:[{attachment: execSync('journalctl -xe | grep bot-loop.sh'),name:'slogs.txt'}]})
+			case 'dmp':
+				if (message.author.id == '596098777941540883'){
+					message.author.dmChannel.send({content: 'cache/storage dump',files: ['./cache.json','./storage.json']})
+				}	
 			default:
 				break;
 		}
