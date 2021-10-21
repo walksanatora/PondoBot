@@ -11,7 +11,7 @@ some [Commands](#commands)
 ## commands
 
 ### help
-sends a ephermiral (hidden from other users) embed containg command names and help text
+sends a ephermral (hidden from other users) embed containg command names and help text
 
 ### reload
 a command used by any whitelisted user (see [here](libs/util.js#L15))
@@ -38,7 +38,7 @@ command that configures variables for your server
 * `email` sets the role for email-verified users <br>
 * `show-message` Config to show messages (whether or not to show ephemeral messages)
 
-## Contribuiting
+# Contribuiting
 
 ### adding a command
 commands are .js files placed in /commands a example command has been provided [here](/commands/example.js)<br>
