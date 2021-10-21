@@ -59,6 +59,8 @@ client.on('messageCreate', async message => {
 			case 'server':
 				message.reply({content: JSON.stringify(db.server[message.guild.id])})
 			break;
+			case 'logs':
+				message.reply({content:'fallback mode enabled, commands disabled',files:['bot.log']})
 			default:
 				break;
 		}
