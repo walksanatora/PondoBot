@@ -52,7 +52,7 @@ client.on('messageCreate', async message => {
 			case 'user':
 				var final = {}
 				Object.keys(db.user[cmd[1]]).forEach(key =>{
-					if (key == 'auth'){}else{
+					if (['auth','CACHECLASS'].includes(key)){}else{
 						final[key]=db.user[cmd[1]][key]
 					}
 				})
