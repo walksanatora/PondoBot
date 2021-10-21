@@ -68,7 +68,7 @@ async function func(interaction,client){
 
 module.exports={
 	'data':data,
-	'helpStr':"list off some device status information",
+	'helpStr':"interactions with google classroom",
 	'canDeploy':true,
 	'guildIds':['783738781097263140'],
 	'function': func
