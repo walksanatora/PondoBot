@@ -33,18 +33,6 @@ const data = new SlashCommandBuilder()
 		sub.setName('get-role')
 			.setDescription('assigns you the role configured for this server for your grade')
 	)
-	.addSubcommand((sub) =>
-		sub.setName('verify-email')
-			.setDescription('begins email verification')
-			.addStringOption((opt) =>
-				opt.setName('key')
-					.setDescription('the key sent to you in a email')
-			)
-			.addStringOption((opt) =>
-			    opt.setName('username')
-					.setDescription('the part before @eduhsd.k12.ca.us')
-			)
-	)
 	.addSubcommand((sub)=>
 		sub.setName('lookup')
 			.setDescription('looks up the users information stored in the bot')
@@ -84,7 +72,7 @@ async function func(interaction,client){
 			}
 			await interaction.reply({content:'roles given',ephemeral:(db.server[guildID].showMessages)? false:true})
 		break;
-		case 'verify-email':
+/*		case 'verify-email':
 				if (interaction.options.getString('key') == null && interaction.options.getString('username') == null ){
 					await interaction.reply({content: 'no option specified',ephemeral:(db.server[guildID].showMessages)? false:true})
 					break;
@@ -132,7 +120,7 @@ async function func(interaction,client){
 					await interaction.reply({content:`email sent to ${uname}@eduhsd.k12.ca.us by fowl21043@eduhsd.k12.ca.us`,ephemeral:true})
 				}
 			break;
-		case 'lookup':
+*/		case 'lookup':
 				var user = interaction.options.getUser('user').id
 				var message = (db.user[user] == undefined)? 'User does not have any data': [
 					(db.user[user].email != undefined)? `Email: ${db.user[user].email}@eduhsd.k12.ca.us`:'Email: unset',
