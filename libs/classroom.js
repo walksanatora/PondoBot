@@ -60,9 +60,9 @@ async function getEmail(OAuth){
 	return out.emailAddress
 }
 
-async function getUser(OAuth,uid){
+async function getTeacher(OAuth,cid){
 	const classroom = google.classroom({version:'v1',auth: OAuth})
-	const out = (await classroom.userProfiles.get({auth: OAuth,userId: uid})).data
+	const out = (await classroom.courses.teachers.get({auth: OAuth,courseId: cid})).data.profile
 }
 
 module.exports={
@@ -70,6 +70,6 @@ module.exports={
 	getClasses: getClasses,
 	getAssignments: getAssignments,
 	getEmail: getEmail,
-	getUser: getUser,
+	getTeacher: getTeacher,
 }
 

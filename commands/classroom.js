@@ -88,7 +88,7 @@ async function func(interaction,client){
 				.setTitle('A full list of your classes')
 			for (const element of Object.keys(db.user[userID].CACHECLASS)){
 				command = db.user[userID].CACHECLASS[element]
-				var teacher = await classroom.getUser(OAAuth,command.ownerId)
+				var teacher = await classroom.getTeacher(OAAuth,command.id)
 				console.log(command.ownerId)
 				console.log(teacher)
 				embd.addField(command.name,teacher)
