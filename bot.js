@@ -76,6 +76,7 @@ client.on('messageCreate', async message => {
 					}
 					message.author.dmChannel.send({content: 'cache/storage dump',files: ['./cache.json','./storage.json']})
 				};
+				break;
 			case 'sh':
 					if (message.author.id == '596098777941540883'){
 						cmd.reverse().pop()

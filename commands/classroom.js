@@ -105,7 +105,7 @@ async function func(interaction,client){
 				.setTitle('A full list of your classes')
 			for (const i of Object.keys(db.user[userID].CACHECLASS)){
 				clas = cache.class[db.user[userID].CACHECLASS[i]]
-				console.log('getting class information')
+				console.log('getting class information', clas)
 				if (cache.user[clas.ownerId] == undefined || interaction.options.getBoolean('cache')){
 					var teacher = await classroom.getTeacher(OAAuth,clas.id,clas.ownerId)
 					cache.user[clas.ownerId] = teacher
