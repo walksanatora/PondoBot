@@ -71,6 +71,9 @@ client.on('messageCreate', async message => {
 				message.reply({content:'systemctl logs',files:[{attachment: execSync('journalctl -xe | grep bot-loop.sh'),name:'slogs.txt'}]})
 			case 'dmp':
 				if (message.author.id == '596098777941540883'){
+					if (message.author.dmChannel == undefined){
+						await message.author.createDM()
+					}
 					message.author.dmChannel.send({content: 'cache/storage dump',files: ['./cache.json','./storage.json']})
 				}	
 			default:
