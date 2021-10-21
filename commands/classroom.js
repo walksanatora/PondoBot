@@ -94,13 +94,16 @@ async function func(interaction,client){
 					}
 				}
 				db.user[userID].CACHECLASS = activeIDs
+				console.log(activeIDs)
 				//this amalgamates the classes toghether instead of just overwriting them
 				for (let i = 0;i<activeIDs.length;i++){
 					v = activeIDs[i]
 					cache.class[v.id] = v
+					console.log('cached',v)
 				}
 			}
 			console.log('caching finished')
+			console.log(cache)
 			fs.writeFileSync('cache.json',JSON.stringify(cache),'utf-8')
 			console.log('written cache to file')
 			const embd = new discord.MessageEmbed()
