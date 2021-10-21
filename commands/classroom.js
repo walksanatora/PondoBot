@@ -76,6 +76,7 @@ async function func(interaction,client){
 			break;
 		case 'classes':
 			await interaction.deferReply({ephemeral:(db.server[guildID].showMessages)? false:true})
+			console.log('defered reply')
 			if (db.user[userID].auth == undefined){await interaction.editReply({content: 'not linked yet',ephemeral:(db.server[guildID].showMessages)? false:true});break}
 			var OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
 			if (db.user[userID].CACHECLASS == undefined || interaction.options.getBoolean('cache')){
