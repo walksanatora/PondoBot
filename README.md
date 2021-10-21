@@ -15,18 +15,28 @@ sends a ephermiral (hidden from other users) embed containg command names and he
 
 ### reload
 a command used by any whitelisted user (see [here](libs/util.js#L15))
+* `bot` reloads the bot via one of two methods<br>
+* `commands` reloads `global` or `guild` commands (or all if no scope is specified)<br>
+
+### classroom
+command for linking email and classroom with the bot
+* `link` run the first time to get a code then run and provide code to link (this is how you verify your email)<br>
+* `unlink` removes API tokens from your account and un-verified your email<br>
+* `classes` list your classes (can specify whether or not to use cached data)<br>
 
 ### students
 command that involves student data current has 3 sub Commands<br>
 * `set-grade` - sets the grade you are in <br>
 * `get-grade` - lets you know which grade you are in <br>
 * `get-role` - gives you your role if the server has been configured<br>
-* `email-verify` - command for verifying your email <br>
 * `lookup` - looks up stored information about a user<br>
 
 ### config
 command that configures variables for your server
-* `set-roles` takes 4 optional arguments for each role (if left blank it will create roles for them)
+* `set-roles` takes 4 optional arguments for each role (if left blank it will create roles for them)<br>
+* `current`	 shows current configs<br>
+* `email` sets the role for email-verified users <br>
+* `show-message` Config to show messages (whether or not to show ephemeral messages)
 
 ## Contribuiting
 
