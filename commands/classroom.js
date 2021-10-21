@@ -13,6 +13,10 @@ const data = new SlashCommandBuilder()
 			.setDescription('the code it told you to enter')
 		)
 	)
+	.addSubcommand((sub)=>
+		sub.setName('unlink')
+		.setDescription('removes the api keys from storage (also marks email as unverified)')
+	)
 
 async function func(interaction,client){ 
 	const db = require('../storage.json')
@@ -45,6 +49,15 @@ async function func(interaction,client){
 						await interaction.reply({content:'unable to link, email not apart of eduhsd'})
 					}
 				}
+			}
+			break;
+		case 'unlink':
+			if (db.user[userID].auth==undefined) {
+				await interaction.reply({content:'you cant unlink something that isn\'t linked',ephemeral:(db.server[guildID].showMessages)? false:true})
+			} else {
+				db.user[userID].auth = undefined
+				db.user[userID].emailVerified = false
+				await interaction.reply({content:'unlinked information',ephemeral:(db.server[guildID].showMessages)? false:true})
 			}
 			break;
 		default:
