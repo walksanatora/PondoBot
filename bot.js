@@ -108,13 +108,13 @@ client.on('interactionCreate', async interaction => {
 		console.log(error.stack)
 		try {
 		try {
-			if (interaction.replied){
+			if (interaction.deferred){
 				interaction.editReply({embeds:[exampleEmbed]})
 			} else {
 				interaction.reply({embeds: [exampleEmbed],ephemeral: (db.server[guildID].showMessages)? false:true})
 			}
 		} catch (err) {
-			if (interaction.replied) {
+			if (interaction.defered) {
 				interaction.editReply(error.toString())
 			} else {
 				interaction.reply({content: error.toString(),ephemeral: (db.server[guildID].showMessages)? false:true})
