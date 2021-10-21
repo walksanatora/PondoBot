@@ -105,6 +105,7 @@ client.on('interactionCreate', async interaction => {
 			.addField(error.toString(),`\`\`\`${error.stack}\`\`\``)
 		console.log(error.stack)
 		try {
+		try {
 			if (interaction.replied){
 				interaction.editReply({embeds:[exampleEmbed]})
 			} else {
@@ -116,7 +117,7 @@ client.on('interactionCreate', async interaction => {
 			} else {
 				interaction.reply({content: error.toString(),ephemeral: (db.server[guildID].showMessages)? false:true})
 			}
-		}
+		}} catch (err){}
 	}
 });
 
