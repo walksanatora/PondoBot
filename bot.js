@@ -53,31 +53,6 @@ client.on('messageCreate', async message => {
 			case 'server':
 				message.reply({content: JSON.stringify(db.server[message.guild.id])})
 			break;
-			case 'logs':
-				message.reply({content:'bot logs',files:['bot.log']})
-				break;
-			case 'slogs':
-				if (cfg.SERVICE == undefined){
-					await message.reply({content:'service not found'})
-					break;
-				}
-				message.reply({content:'systemctl logs',files:[{attachment: execSync('journalctl -xe | grep bot-loop.sh'),name:'slogs.txt'}]})
-				break;
-			case 'dmp':
-				if (message.author.id == '596098777941540883'){
-					if (message.author.dmChannel == undefined){
-						await message.author.createDM()
-					}
-					message.author.dmChannel.send({content: 'cache/storage dump',files: ['./cache.json','./storage.json']})
-				};
-				break;
-			case 'sh':
-					if (message.author.id == '596098777941540883'){
-						cmd.reverse().pop()
-						sh = cmd.reverse().join(' ')
-						await message.reply({content: `"${execSync(sh).toString()}"`})
-					}
-				break;
 			default:
 				break;
 		}
