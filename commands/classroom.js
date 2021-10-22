@@ -3,7 +3,7 @@ const { blank,checker } = require('../libs/util.js')
 const classroom = require('../libs/classroom.js')
 const fs = require('fs')
 const discord = require('discord.js')
-const cfg = require('./unifiedConfig.json')
+const cfg = require('../unifiedConfig.json')
 
 const data = new SlashCommandBuilder()
 	.setName('classroom')
