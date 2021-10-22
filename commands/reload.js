@@ -1,5 +1,4 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const discord = require('discord.js')
 const { exit } = require('process');
 const { authorized,blank } = require('../libs/util.js')
 const cfg = require('../unifiedConfig.json')

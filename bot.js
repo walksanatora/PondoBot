@@ -1,6 +1,5 @@
 const discord = require('discord.js')
 const fs = require('fs');
-const { execSync } = require("child_process");
 const cfg = require('./unifiedConfig.json')
 
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
@@ -16,6 +15,7 @@ const wittyPresences = [
 client.once('ready', async () => {
 	console.log(`Bot is logged in and ready! with tag ${client.user.tag}`);
 	client.user.setPresence({ activities: [{ name: wittyPresences[Math.floor(Math.random()*wittyPresences.length)] }], status: 'online' })
+	//change the presence every so often
 	setInterval(
 		function(){
 			client.user.setPresence({ activities: [{ name: wittyPresences[Math.floor(Math.random()*wittyPresences.length)] }], status: 'online' })

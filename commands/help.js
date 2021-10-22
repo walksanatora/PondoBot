@@ -14,7 +14,7 @@ async function func(interaction,client){ // first arg is the interaction object,
 	//get all commands that share a guildIds with the current guild or has `canDeploy` set to true
 	Object.keys(commands).forEach(element => {
 		command = commands[element]
-		if (has(interaction.guildId,command.guildIds) || command.canDeploy){
+		if (command.guildIds.includes(interaction.guildId) || command.canDeploy){
 			serverCommands.push(command)
 		}
 	});

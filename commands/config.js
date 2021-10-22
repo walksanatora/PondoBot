@@ -1,6 +1,6 @@
 const { SlashCommandBuilder,roleMention } = require('@discordjs/builders');
 const fs = require('fs')
-const { has,authorized,blank } = require('../libs/util.js')
+const { authorized,blank } = require('../libs/util.js')
 const discord = require('discord.js')
 
 const data = new SlashCommandBuilder()
@@ -83,7 +83,7 @@ async function func(interaction,client){
 		//sets the config for what roles are assigned
 		case 'set-roles': 
 			if (authorized(interaction)){
-				if( ! has(server,Object.keys(db.server))){db.server[server] = {}}
+				if( ! Object.keys(db.server).includes(server)){db.server[server] = {}}
 				var froshid = await getroleid('freshman-role',interaction)
 				var sophid = await getroleid('sophmore-role',interaction)
 				var juniorid = await getroleid('junior-role',interaction)

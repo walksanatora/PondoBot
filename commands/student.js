@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { has,blank,noToYear } = require('../libs/util.js')
+const { blank,noToYear } = require('../libs/util.js')
 const fs = require('fs')
 const discord = require('discord.js')
 const data = new SlashCommandBuilder()
@@ -42,7 +42,7 @@ async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}
 	var user = interaction.user.id
 	var guildID = interaction.guild.id
-	if( ! has(user,Object.keys(db.user))){db.user[user] = {}}
+	if( !Object.keys(db.user).includes(user)){db.user[user] = {}}
 	switch (interaction.options.getSubcommand(true)) {
 		//stores your grade in the config
 		case 'set-grade':
@@ -62,7 +62,7 @@ async function func(interaction,client){
 				}
 			}
 			(db.user[user].grade == null)? await interaction.reply({content:'grade not configured',ephemeral:(db.server[guildID].showMessages)? false:true}):null
-			if( ! has(guildID,Object.keys(db.server))) {await interaction.reply({content:'Not Setup, ask someone with `manage channels` to set it up',ephemeral:false})} else{
+			if( ! Object.keys(db.server).includes(guildID)) {await interaction.reply({content:'Not Setup, ask someone with `manage channels` to set it up',ephemeral:false})} else{
 				interaction.member.roles.remove(db.server[guildID].grade)
 				interaction.member.roles.add(db.server[guildID].grade[db.user[user].grade - 1])
 			}
