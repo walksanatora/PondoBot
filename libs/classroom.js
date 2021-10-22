@@ -57,7 +57,7 @@ async function getClass(OAuth,cid){
 
 async function getAssignments(OAuth,courseID){
 	const classroom = google.classroom({version:'v1',auth: OAuth})
-	const classes = (await classroom.courses.courseWork.list({auth:OAuth, courseId: courseID})).data
+	const classes = (await classroom.courses.courseWork.list({courseId: courseID})).data
 	return classes
 }
 
