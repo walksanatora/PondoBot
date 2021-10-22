@@ -1,9 +1,7 @@
-require('dotenv').config()
 const discord = require('discord.js')
-const { codeBlock } = require('@discordjs/builders');
 const fs = require('fs');
 const { execSync } = require("child_process");
-
+const cfg = require('./unifiedConfig.json')
 
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
 
@@ -14,12 +12,6 @@ const wittyPresences = [
 	'with your heart',
 	'with values'
 ]
-/*
-variables in .env
-DISCORD_TOKEN: your discord token
-DISCORD_CLIENT: the client ID of said bot
-SALT: a random string used for ofsetting the encryption used in email verification
-*/
 
 client.once('ready', async () => {
 	console.log(`Bot is logged in and ready! with tag ${client.user.tag}`);
@@ -65,7 +57,7 @@ client.on('messageCreate', async message => {
 				message.reply({content:'bot logs',files:['bot.log']})
 				break;
 			case 'slogs':
-				if (process.env.SERVICE == undefined){
+				if (cfg.SERVICE == undefined){
 					await message.reply({content:'service not found'})
 					break;
 				}
@@ -123,4 +115,4 @@ client.on('interactionCreate', async interaction => {
 	}
 });
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(cfg.DISCORD_TOKEN);

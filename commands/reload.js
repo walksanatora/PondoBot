@@ -2,6 +2,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const discord = require('discord.js')
 const { exit } = require('process');
 const { authorized,blank } = require('../libs/util.js')
+const cfg = require('./unifiedConfig.json')
 
 const data = new SlashCommandBuilder()
 	.setName('reload')
@@ -44,13 +45,13 @@ async function func(interaction,client) {
 				client.user.setPresence({ activities: [{ name: 'restarting' }], status: 'dnd' });
 				exit()
 			} else {
-				if (process.env.SERVICE == undefined){
+				if (cfg.SERVICE == undefined){
 					await interaction.reply({content:'unable to restart service, service name not set in .env',ephemeral:(db.server[guildID].showMessages)? false:true})
 					break;
 				}
 				await interaction.reply({content:'reloading bot via service',ephemeral:(db.server[guildID].showMessages)? false:true})
 				await client.user.setPresence({ activities: [{ name: 'restarting' }], status: 'dnd' });
-				execSync(`sudo systemctl restart ${process.env.SERVICE}`)
+				execSync(`sudo systemctl restart ${cfg.SERVICE}`)
 			}
 		break;
 		case 'commands':

@@ -1,13 +1,13 @@
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-require('dotenv').config()
+const cfg = require('./unifiedConfig.json')
 const fs = require('fs');
 
 var commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
 // Place your client and guild ids here
-const clientId = process.env.DISCORD_CLIENT
+const clientId = cfg.DISCORD_CLIENT
 
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -18,7 +18,7 @@ for (const file of commandFiles) {
 }
 console.log(commands)
 
-const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_TOKEN);
+const rest = new REST({ version: '9' }).setToken(cfg.DISCORD_TOKEN);
 
 (async () => {
 	try {
