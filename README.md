@@ -72,5 +72,5 @@ a empty json looks like
 then after those are set just run
 `node guildCommands.js`<br>
 note: if you want to deploy to specific servers with the above command you need to specify it in the `module.exports.guildIds` of the command <br>
-then
+then<br>
 `node globalCommands.js`<br>
