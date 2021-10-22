@@ -17,7 +17,9 @@ const noToYear ={
 let checker = (arr,target) => target.every(v=>arr.includes(v))
 
 //users that are *always* allowed to use authorized commands
-const allowedUsers = ['596098777941540883']
+const allowedUsers = [
+	'596098777941540883' //walksanator (Walker F. Fowlkes)
+]
 
 //functions
 function has(value,array) {

@@ -8,7 +8,7 @@ lets see how I protect yours
 1. cached to allow faster commands <br>
 	ex: your classes will cached to save on bandwidth<br>
 2. displayed upon request from<br>
-	a. Server Members with the `manage guild` permissions (limited)<br>
-	b. Our [Authorized users](libs/util.js#L15) (limited)<br>
-	c. **you** when using commands<br>
+	* **you** when using commands<br>
+	* users that you share a class with<br>
+	* any [authorized user](libs/util.js#L20-L22)
 	(limited means that they dont get as much data)<br>
