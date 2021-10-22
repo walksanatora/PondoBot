@@ -8,7 +8,8 @@ var SCOPES = [
     'https://www.googleapis.com/auth/classroom.announcements.readonly',
 	'https://www.googleapis.com/auth/classroom.course-work.readonly',
     'https://www.googleapis.com/auth/classroom.topics.readonly',
-	'https://www.googleapis.com/auth/classroom.profile.emails'
+	'https://www.googleapis.com/auth/classroom.profile.emails',
+	'https://www.googleapis.com/auth/classroom.student-submissions.me.readonly'
 ];
 
 /**
@@ -42,30 +43,55 @@ async function authorize(credentials,code) {
 	}
 }
 
+
+/**
+ * Gets all classes a OAuth2 user has
+ * @param {google.auth.OAuth2} Oauth the OAuth2 client
+ */
 async function getClasses(OAuth){
 	const classroom = google.classroom({version:'v1',auth: OAuth})
 	const classes = (await classroom.courses.list({auth:OAuth},{})).data
 	return classes
 }
 
+/**
+ * Gets all classes a OAuth2 user has
+ * @param {google.auth.OAuth2} Oauth the OAuth2 client
+ * @param {string} cid the classroom id to get
+ */
 async function getClass(OAuth,cid){
 	const classroom = google.classroom({version:'v1',auth: OAuth})
 	const clas = (await classroom.courses.get({id: cid})).data
 	return clas
 }
 
+/**
+ * Gets a class a OAuth2 user has
+ * @param {google.auth.OAuth2} Oauth the OAuth2 client
+ * @param {string} courseID the course id to get assignments of
+ */
 async function getAssignments(OAuth,courseID){
 	const classroom = google.classroom({version:'v1',auth: OAuth})
 	const classes = (await classroom.courses.courseWork.list({courseId: courseID})).data
 	return classes
 }
 
+/**
+ * Gets all email a OAuth2 user has
+ * @param {google.auth.OAuth2} Oauth the OAuth2 client
+ */
 async function getEmail(OAuth){
 	const classroom = google.classroom({version:'v1',auth: OAuth})
 	const out = (await classroom.userProfiles.get({auth:OAuth,userId: 'me'})).data
 	return out.emailAddress
 }
 
+/**
+ * Gets all classes a OAuth2 user has
+ * @param {google.auth.OAuth2} Oauth the OAuth2 client
+ * @param {string} cid the courseid to get the user from
+ * @param {string} uid the userid to get from the course
+ */
 async function getTeacher(OAuth,cid,uid){
 	const classroom = google.classroom({version:'v1',auth: OAuth})
 	const out = (await classroom.courses.teachers.get({auth: OAuth,courseId: cid,userId: uid})).data.profile
