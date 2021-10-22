@@ -98,7 +98,7 @@ async function func(interaction,client){
 				for (let i = 0;i<activeIDs.length;i++){
 					v = active[activeIDs[i]]
 					cache.class[v.id] = v
-					console.log('cached class',v)
+					console.log('cached class (full)',v)
 				}
 			}
 			//make sure we have all the classes cached incase they got a new class
@@ -108,7 +108,7 @@ async function func(interaction,client){
 					v = diff[i]
 					const clas = classroom.getClass(OAAuth,v)
 					cache.class[v] = clas.course
-					console.log('cached class',v)
+					console.log('cached class (specific)',v)
 				}
 			}
 			console.log(cache)
