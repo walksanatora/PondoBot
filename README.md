@@ -56,3 +56,21 @@ as you can see the module has to export a dictionary containg values these value
 	first is the [interaction](https://discord.js.org/#/docs/main/stable/class/Interaction)<br>
 	second is the [client](https://discord.js.org/#/docs/main/stable/class/Client)<br>
 
+# FAQ
+### can I run this bot for my school?
+A: yes you just need to set the correct values in `unifiedConfig.json`<br>
+a empty json looks like
+```json
+{
+	"DISCORD_TOKEN": "discord bot token to run the bot",
+	"DISCORD_CLIENT": "your discord client id",
+	"EMAIL_SUFFIX": "the part after the @ schools email ex: @eduhsd.k12.ca.us",
+	"SERVICE": "optional systemd service for /reload bot method: service",
+	"GoogleOAuth": "google OAuth2 desktop credentials json here"
+}
+```
+then after those are set just run
+`node guildCommands.js`<br>
+note: if you want to deploy to specific servers with the above command you need to specify it in the `module.exports.guildIds` of the command <br>
+then
+`node globalCommands.js`<br>
