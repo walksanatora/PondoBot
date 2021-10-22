@@ -106,7 +106,7 @@ async function func(interaction,client){
 				const diff = db.user[userID].CACHECLASS.filter(k=>!Object.keys(cache.class).includes(k))
 				for (let i = 0;i<diff.length;i++){
 					v = diff[i]
-					const clas = classroom.getClass(OAAuth,v)
+					const clas = await classroom.getClass(OAAuth,v)
 					cache.class[v] = clas.course
 					console.log('cached class (specific)',v)
 				}
