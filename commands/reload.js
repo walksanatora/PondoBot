@@ -34,9 +34,12 @@ const data = new SlashCommandBuilder()
 	)
 
 async function func(interaction,client) {
+	//get storage or it is blank
 	try{var db = require('../storage.json')}catch (error){db = blank}
+	//get guildID into a variable for ease of use
 	var guildID = interaction.guild.id
 	switch (interaction.options.getSubcommand(true)) {
+		//reload the bot
 		case 'bot':
 			if (! authorized(interaction)) {await interaction.reply({content:'not authorized to reload bot',ephemeral:(db.server[guildID].showMessages)? false:true});break}
 			const method = interaction.options.getString('method')
@@ -46,7 +49,7 @@ async function func(interaction,client) {
 				exit()
 			} else {
 				if (cfg.SERVICE == undefined){
-					await interaction.reply({content:'unable to restart service, service name not set in .env',ephemeral:(db.server[guildID].showMessages)? false:true})
+					await interaction.reply({content:'unable to restart service, service name not set in unifiedConfig.json',ephemeral:(db.server[guildID].showMessages)? false:true})
 					break;
 				}
 				await interaction.reply({content:'reloading bot via service',ephemeral:(db.server[guildID].showMessages)? false:true})
@@ -54,6 +57,7 @@ async function func(interaction,client) {
 				execSync(`sudo systemctl restart ${cfg.SERVICE}`)
 			}
 		break;
+		//reload the commands by requiring the reload scripts
 		case 'commands':
 			if (! authorized(interaction)) {await interaction.reply({content:'not authorized to reload commands',ephemeral:(db.server[guildID].showMessages)? false:true});break}
 			const scope = interaction.options.getString('scope')

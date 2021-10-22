@@ -87,7 +87,7 @@ async function getEmail(OAuth){
 }
 
 /**
- * Gets all classes a OAuth2 user has
+ * Gets the user of a class
  * @param {google.auth.OAuth2} Oauth the OAuth2 client
  * @param {string} cid the courseid to get the user from
  * @param {string} uid the userid to get from the course

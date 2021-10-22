@@ -1,6 +1,6 @@
 const { SlashCommandBuilder,roleMention } = require('@discordjs/builders');
 const fs = require('fs')
-const { has,authorized } = require('../libs/util.js')
+const { has,authorized,blank } = require('../libs/util.js')
 const discord = require('discord.js')
 
 const data = new SlashCommandBuilder()
@@ -48,11 +48,7 @@ const data = new SlashCommandBuilder()
 		)
 	)
 
-const blank = {	
-	user: {},
-	server: {}
-}
-
+//easy way to get config to readable name
 const optionNameToRoleName = {
 	'freshman-role': 'freshman',
 	'sophomore-role': 'sophomore',
@@ -60,6 +56,7 @@ const optionNameToRoleName = {
 	'senior-role': 'senior'
 }
 
+//example role colors
 const optionNameToRoleColor = {
 	'freshman-role': [255,255,0],
 	'sophomore-role': [255,192,203],
@@ -67,6 +64,7 @@ const optionNameToRoleColor = {
 	'senior-role': [255,165,0]
 }
 
+//gets the roleID or makes a new role if it doesen't exist
 async function getroleid(name,interaction){
 	var tmp = await interaction.options.getRole(name)
 	if (tmp == null){
@@ -76,9 +74,13 @@ async function getroleid(name,interaction){
 }
 
 async function func(interaction,client){
+	//get the storage 
 	try{var db = require('../storage.json')}catch (error){db = blank}
+	//get the guildID
 	server = interaction.guild.id
+	//subcommands
 	switch (interaction.options.getSubcommand(true)){
+		//sets the config for what roles are assigned
 		case 'set-roles': 
 			if (authorized(interaction)){
 				if( ! has(server,Object.keys(db.server))){db.server[server] = {}}
@@ -93,6 +95,7 @@ async function func(interaction,client){
 				await interaction.reply({content: 'Denied, requires `Manage Server` permissions',ephemeral:(db.server[server].showMessages)? false:true})
 			}
 		break;
+		//send a embed about what the current configs are 
 		case 'current':
 			if (authorized(interaction)){
 				var message = [
@@ -114,6 +117,7 @@ async function func(interaction,client){
 			}
 			await interaction.reply({embeds:[embed],ephemeral:(db.server[server].showMessages)? false:true})
 		break;
+		//config what the email role is
 		case 'email':
 			var role = interaction.options.getRole('role')
 			if (! authorized(interaction)){
@@ -128,6 +132,7 @@ async function func(interaction,client){
 				await interaction.reply({content:`email verified role set to ${roleMention(role.id)}`,ephemeral:(db.server[server].showMessages)? false:true})
 			}
 		break;
+		//config if ephemeral messages should be disabled
 		case 'show-message':
 			if (! authorized(interaction)){
 				await interaction.reply({content: 'not authorized to config this',ephemeral:(db.server[server].showMessages)? false:true})
@@ -140,6 +145,7 @@ async function func(interaction,client){
 			await interaction.reply({content:`invalid command ${interaction.options.getSubcommand(true)}`,ephemeral:(db.server[server].showMessages)? false:true})
 		
 	}
+	//store the data again
 	fs.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
 }
 

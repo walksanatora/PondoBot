@@ -30,15 +30,21 @@ const data = new SlashCommandBuilder()
 	)
 
 async function func(interaction,client){ 
+	// make sure the files have data, if they dont give them default data
 	try{var db = require('../storage.json')}catch (error){db = blank}
 	try{var cache = require('../cache.json')}catch (error){cache = {
 		class: {},
 		user: {}
 	}}
+	// constants to read storage
 	const guildID = interaction.guild.id
 	const userID = interaction.user.id
+
+	// get the OAuth credentials from configs
 	var OAAuth = cfg.GoogleOAuth
+	//switch to run commands
 	switch (interaction.options.getSubcommand(true)) {
+		//link the classroomAPI to the bot
 		case 'link':
 			const code = interaction.options.getString('code')
 			if (code == undefined){
@@ -66,6 +72,7 @@ async function func(interaction,client){
 				}
 			}
 			break;
+		//delete auth credentials
 		case 'unlink':
 			if (db.user[userID].auth==undefined) {
 				await interaction.reply({content:'you cant unlink something that isn\'t linked',ephemeral:(db.server[guildID].showMessages)? false:true})
@@ -75,11 +82,16 @@ async function func(interaction,client){
 				await interaction.reply({content:'unlinked information',ephemeral:(db.server[guildID].showMessages)? false:true})
 			}
 			break;
+		//get classes of the user
 		case 'classes':
+			//defer the reply since this may take a while
 			await interaction.deferReply({ephemeral:(db.server[guildID].showMessages)? false:true})
 			console.log('defered reply')
+			// return if they have not linked yet
 			if (db.user[userID].auth == undefined){await interaction.editReply({content: 'not linked yet',ephemeral:(db.server[guildID].showMessages)? false:true});break}
+			// authorize the classroom api
 			var OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
+			// regen the cache if the user has no CACHECLASS or cache.class is empty or they force no-cache
 			if (db.user[userID].CACHECLASS == undefined || cache.class === {} || interaction.options.getBoolean('cache')){
 				console.log('over-writing cache')
 				var array = (await classroom.getClasses(OAAuth)).courses
@@ -112,30 +124,39 @@ async function func(interaction,client){
 					console.log('cached class (get)',v)
 				}
 			}
+			//make the embed
 			const embd = new discord.MessageEmbed()
 				.setColor([0,255,128])
 				.setTitle('A full list of your classes')
+			//itterate over the classes
 			for (const i of Object.keys(db.user[userID].CACHECLASS)){
+				//get the class from the cache
 				clas = cache.class[db.user[userID].CACHECLASS[i]]
+				//get the teacher from Google API if it is not cached or forcing a cache regen
 				if (cache.user[clas.ownerId] == undefined || interaction.options.getBoolean('cache')){
 					var teacher = await classroom.getTeacher(OAAuth,clas.id,clas.ownerId)
 					cache.user[clas.ownerId] = teacher
 					console.log('cached user',clas.ownerId)
 				}
+				//get teacher from cache
 				var teacher = cache.user[clas.ownerId]
+				// created the embed content
 				var content = [
 					`Teacher: ${teacher.name.fullName}`,
 					`Email: ${teacher.emailAddress}`,
 					`Link: [Here](${clas.alternateLink})`
 				].join('\n')
+				//add it to the embed
 				embd.addField(clas.name,content)
 			}
+			// edit the defered reply with the embed
 			console.log('editing reply, embed finished')
 			await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
 		default:
 			await interaction.reply({content:'invalid command',ephemeral:(db.server[guildID].showMessages)? false:true})
 		}
+	//save the storage and cache back to their files
 	fs.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
 	fs.writeFileSync('cache.json',JSON.stringify(cache),'utf-8')
 }

@@ -3,12 +3,13 @@ const { Routes } = require('discord-api-types/v9');
 const cfg = require('./unifiedConfig.json')
 const fs = require('fs');
 
+//get all commands
 var commands = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-// Place your client and guild ids here
 const clientId = cfg.DISCORD_CLIENT
 
+//move all commands into the list
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	command.guildIds.forEach(element => {
@@ -16,10 +17,12 @@ for (const file of commandFiles) {
 		commands.push(command.data.toJSON())
 	}});
 }
+//list all the commands found
 console.log(commands)
-
+//ready the REST api
 const rest = new REST({ version: '9' }).setToken(cfg.DISCORD_TOKEN);
 
+//push the commands
 (async () => {
 	try {
 		console.log('Started refreshing global application (/) commands.');

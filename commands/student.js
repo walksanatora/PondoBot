@@ -44,13 +44,16 @@ async function func(interaction,client){
 	var guildID = interaction.guild.id
 	if( ! has(user,Object.keys(db.user))){db.user[user] = {}}
 	switch (interaction.options.getSubcommand(true)) {
+		//stores your grade in the config
 		case 'set-grade':
 				db.user[user].grade = Number(interaction.options.getString('year',true))
 				await interaction.reply({content:`updated year to id ${db.user[user].grade}`,ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
+		//tells you what grade you have configured
 		case 'get-grade':
 				await interaction.reply({content:`your are currently in ${noToYear[db.user[user].grade]} year`,ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
+		//gives a role for your grade, and if your email is verified
 		case 'get-role':
 			if ( db.server[guildID].emailRole != undefined){
 				interaction.member.roles.remove(db.server[guildID].emailRole)
@@ -65,6 +68,7 @@ async function func(interaction,client){
 			}
 			await interaction.reply({content:'roles given',ephemeral:(db.server[guildID].showMessages)? false:true})
 		break;
+		//shows other users some of the info in the bot about you
 		case 'lookup':
 				var user = interaction.options.getUser('user').id
 				var message = (db.user[user] == undefined)? 'User does not have any data': [

@@ -11,15 +11,18 @@ async function func(interaction,client){ // first arg is the interaction object,
 		.setColor([0,255,128])
 		.setTitle('A full list of commands')
 	const serverCommands = []
+	//get all commands that share a guildIds with the current guild or has `canDeploy` set to true
 	Object.keys(commands).forEach(element => {
 		command = commands[element]
 		if (has(interaction.guildId,command.guildIds) || command.canDeploy){
 			serverCommands.push(command)
 		}
 	});
+	//create the embed fields
 	serverCommands.forEach(element =>{
 		exampleEmbed.addField('/'+element.data.name,element.helpStr,true)
 	})
+	//send the embed
 	await interaction.reply({ embeds:[exampleEmbed],ephemeral: true})
 }
 

@@ -4,7 +4,7 @@ const { execSync } = require("child_process");
 const cfg = require('./unifiedConfig.json')
 
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
-
+// random presences that are changed through every so often
 const wittyPresences = [
 	'with your sanity',
 	'with the concept of life and death',
@@ -12,7 +12,7 @@ const wittyPresences = [
 	'with your heart',
 	'with values'
 ]
-
+// log when the bot starts
 client.once('ready', async () => {
 	console.log(`Bot is logged in and ready! with tag ${client.user.tag}`);
 	client.user.setPresence({ activities: [{ name: wittyPresences[Math.floor(Math.random()*wittyPresences.length)] }], status: 'online' })
@@ -24,7 +24,7 @@ client.once('ready', async () => {
 	)
 
 });
-
+//load all commands into a global
 global.commands = {}
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
@@ -32,7 +32,7 @@ for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	global.commands[command.data.name] = command
 }
-
+//old non-/ commands for bot<=>bot interaction
 client.on('messageCreate', async message => {
 	const db = require('./storage.json')
 	var con = message.content.trim()
@@ -59,15 +59,20 @@ client.on('messageCreate', async message => {
 	}
 })
 
+//run a command from a command file
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isCommand()) return;
+	if (!interaction.isCommand()) return; //if it is not a command, we have nothing to do then
+	//log that a command was run by a user
 	console.log(`Invoking /${interaction.commandName} from user ${interaction.user.tag}`)
+	// try running the command
 	try {
 		await commands[interaction.commandName].function(interaction,client)	
 	} catch (error) {
+		//load the db to get the configs
 		const db = require('./storage.json')
 		const guildID = interaction.guild.id
 		console.log('ERROR OCCURRED OHNO!!!')
+		//make a embed for the error
 		const exampleEmbed = new discord.MessageEmbed()
 			.setColor('#ff0000')
 			.setTitle('Error occured')
@@ -75,18 +80,20 @@ client.on('interactionCreate', async interaction => {
 		console.log(error.stack)
 		try {
 		try {
+			//edit reply or reply
 			if (interaction.deferred){
 				interaction.editReply({embeds:[exampleEmbed]})
 			} else {
 				interaction.reply({embeds: [exampleEmbed],ephemeral: (db.server[guildID].showMessages)? false:true})
 			}
 		} catch (err) {
+			//try without the embed
 			if (interaction.defered) {
 				interaction.editReply(error.toString())
 			} else {
 				interaction.reply({content: error.toString(),ephemeral: (db.server[guildID].showMessages)? false:true})
 			}
-		}} catch (err){}
+		}} catch (err){/*if all else fails do nothing*/}
 	}
 });
 
