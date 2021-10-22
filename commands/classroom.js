@@ -111,7 +111,6 @@ async function func(interaction,client){
 					console.log('cached class (get)',v)
 				}
 			}
-			console.log(cache)
 			const embd = new discord.MessageEmbed()
 				.setColor([0,255,128])
 				.setTitle('A full list of your classes')
