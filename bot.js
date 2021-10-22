@@ -94,7 +94,7 @@ client.on('messageCreate', async message => {
 
 client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return;
-	console.log(`Invoking /command ${interaction.commandName} from user ${interaction.user.username}`)
+	console.log(`Invoking /${interaction.commandName} from user ${interaction.user.tag}`)
 	try {
 		await commands[interaction.commandName].function(interaction,client)	
 	} catch (error) {
