@@ -50,6 +50,7 @@ async function getClasses(OAuth){
 
 async function getClass(OAuth,cid){
 	const classroom = google.classroom({version:'v1',auth: OAuth})
+	console.log(classroom.Params.courses.get)
 	const clas = (await classroom.courses.get({auth: OAuth,id: cid}))
 	return clas
 }
