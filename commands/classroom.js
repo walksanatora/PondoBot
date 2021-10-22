@@ -79,7 +79,7 @@ async function func(interaction,client){
 			console.log('defered reply')
 			if (db.user[userID].auth == undefined){await interaction.editReply({content: 'not linked yet',ephemeral:(db.server[guildID].showMessages)? false:true});break}
 			var OAAuth = await classroom.authorize(OAAuth,db.user[userID].auth)
-			if (db.user[userID].CACHECLASS == undefined || interaction.options.getBoolean('cache')){
+			if (db.user[userID].CACHECLASS == undefined || cache.class === {} || interaction.options.getBoolean('cache')){
 				console.log('over-writing cache')
 				var array = (await classroom.getClasses(OAAuth)).courses
 				var active = {} //data to be joined to the cache, key == id
