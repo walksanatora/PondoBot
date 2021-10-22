@@ -48,6 +48,12 @@ async function getClasses(OAuth){
 	return classes
 }
 
+async function getClass(OAuth,cid){
+	const classroom = google.classroom({version:'v1',auth: OAuth})
+	const clas = (await classroom.courses.get({auth: OAuth,id: cid})).data
+	return clas
+}
+
 async function getAssignments(OAuth,courseID){
 	const classroom = google.classroom({version:'v1',auth: OAuth})
 	const classes = (await classroom.courses.courseWork.list({auth:OAuth, courseId: courseID})).data
@@ -69,6 +75,7 @@ async function getTeacher(OAuth,cid,uid){
 module.exports={
 	authorize: authorize,
 	getClasses: getClasses,
+	getClass: getClass,
 	getAssignments: getAssignments,
 	getEmail: getEmail,
 	getTeacher: getTeacher,

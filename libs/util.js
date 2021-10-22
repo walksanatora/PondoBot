@@ -12,6 +12,8 @@ const noToYear ={
 	4:'senior'
 }
 
+let checker = (arr,target) => target.every(v=>arr.includes(v))
+
 const allowedUsers = ['596098777941540883']
 
 //functions
@@ -36,6 +38,7 @@ module.exports ={
 	blank: blankDB,
 	noToYear: noToYear,
 	allowedUsers:allowedUsers,
-	authorized:authorized
+	authorized:authorized,
+	checker: checker,
 
 }

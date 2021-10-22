@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { blank } = require('../libs/util.js')
+const { blank,checker } = require('../libs/util.js')
 const classroom = require('../libs/classroom.js')
 const fs = require('fs')
 const discord = require('discord.js')
@@ -89,7 +89,7 @@ async function func(interaction,client){
 					if (array[index].courseState == 'ACTIVE'){
 						active[array[index].id] = array[index]
 						activeIDs.push(array[index].id)
-						console.log('cached',array[index].id)
+						console.log('cached classID',array[index].id)
 					}
 				}
 				db.user[userID].CACHECLASS = activeIDs
@@ -98,7 +98,17 @@ async function func(interaction,client){
 				for (let i = 0;i<activeIDs.length;i++){
 					v = active[activeIDs[i]]
 					cache.class[v.id] = v
-					console.log('cached',v)
+					console.log('cached class',v)
+				}
+			}
+			//make sure we have all the classes cached incase they got a new class
+			if (!checker(Object.keys(cache.class),db.user[userID].CACHECLASS)){
+				const diff = db.user[userID].CACHECLASS.filter(k=>!Object.keys(cache.class).includes(k))
+				for (let i = 0;i<diff.length;i++){
+					v = diff[i]
+					const clas = classroom.getClass(OAAuth,v)
+					cache.class[v] = clas.course
+					console.log('cached class',v)
 				}
 			}
 			const embd = new discord.MessageEmbed()
