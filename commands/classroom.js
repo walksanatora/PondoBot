@@ -107,7 +107,8 @@ async function func(interaction,client){
 				for (let i = 0;i<diff.length;i++){
 					v = diff[i]
 					const clas = await classroom.getClass(OAAuth,v)
-					cache.class[v] = clas.course
+					cache.class[v] = clas
+					console.log('caching',clas)
 					console.log('cached class (specific)',v)
 				}
 			}
