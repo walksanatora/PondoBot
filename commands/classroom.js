@@ -98,7 +98,7 @@ async function func(interaction,client){
 				for (let i = 0;i<activeIDs.length;i++){
 					v = active[activeIDs[i]]
 					cache.class[v.id] = v
-					console.log('cached class (full)',v)
+					console.log('cached class (list)',v)
 				}
 			}
 			//make sure we have all the classes cached incase they got a new class
@@ -108,8 +108,7 @@ async function func(interaction,client){
 					v = diff[i]
 					const clas = await classroom.getClass(OAAuth,v)
 					cache.class[v] = clas
-					console.log('caching',clas)
-					console.log('cached class (specific)',v)
+					console.log('cached class (get)',v)
 				}
 			}
 			console.log(cache)
@@ -118,10 +117,10 @@ async function func(interaction,client){
 				.setTitle('A full list of your classes')
 			for (const i of Object.keys(db.user[userID].CACHECLASS)){
 				clas = cache.class[db.user[userID].CACHECLASS[i]]
-				console.log('getting class information', clas)
 				if (cache.user[clas.ownerId] == undefined || interaction.options.getBoolean('cache')){
 					var teacher = await classroom.getTeacher(OAAuth,clas.id,clas.ownerId)
 					cache.user[clas.ownerId] = teacher
+					console.log('cached user',clas.ownerId)
 				}
 				var teacher = cache.user[clas.ownerId]
 				var content = [
