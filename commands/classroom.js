@@ -27,6 +27,10 @@ const data = new SlashCommandBuilder()
 			opt.setName('cache')
 			.setDescription('whether or not to force invalidate the cache and overwrite it')
 		)
+		.addUserOption((opt)=>
+			opt.setName('user')
+			.setDescription('user to check for similar classes')
+		)
 	)
 
 async function func(interaction,client){ 
@@ -124,34 +128,66 @@ async function func(interaction,client){
 					console.log('cached class (get)',v)
 				}
 			}
-			//make the embed
-			const embd = new discord.MessageEmbed()
-				.setColor([0,255,128])
-				.setTitle('A full list of your classes')
-			//itterate over the classes
-			for (const i of Object.keys(db.user[userID].CACHECLASS)){
-				//get the class from the cache
-				clas = cache.class[db.user[userID].CACHECLASS[i]]
-				//get the teacher from Google API if it is not cached or forcing a cache regen
-				if (cache.user[clas.ownerId] == undefined || interaction.options.getBoolean('cache')){
-					var teacher = await classroom.getTeacher(OAAuth,clas.id,clas.ownerId)
-					cache.user[clas.ownerId] = teacher
-					console.log('cached user',clas.ownerId)
+			//whether or not to get their classes *or* look for classes they have in common
+			if (interaction.options.getUser('user') == undefined){
+				//make the embed
+				const embd = new discord.MessageEmbed()
+					.setColor([0,255,128])
+					.setTitle('A full list of your classes')
+				//itterate over the classes
+				for (const i of Object.keys(db.user[userID].CACHECLASS)){
+					//get the class from the cache
+					clas = cache.class[db.user[userID].CACHECLASS[i]]
+					//get the teacher from Google API if it is not cached or forcing a cache regen
+					if (cache.user[clas.ownerId] == undefined || interaction.options.getBoolean('cache')){
+						var teacher = await classroom.getTeacher(OAAuth,clas.id,clas.ownerId)
+						cache.user[clas.ownerId] = teacher
+						console.log('cached user',clas.ownerId)
+					}
+					//get teacher from cache
+					var teacher = cache.user[clas.ownerId]
+					// created the embed content
+					var content = [
+						`Teacher: ${teacher.name.fullName}`,
+						`Email: ${teacher.emailAddress}`,
+						`Link: [Here](${clas.alternateLink})`
+					].join('\n')
+					//add it to the embed
+					embd.addField(clas.name,content)
 				}
-				//get teacher from cache
-				var teacher = cache.user[clas.ownerId]
-				// created the embed content
-				var content = [
-					`Teacher: ${teacher.name.fullName}`,
-					`Email: ${teacher.emailAddress}`,
-					`Link: [Here](${clas.alternateLink})`
-				].join('\n')
-				//add it to the embed
-				embd.addField(clas.name,content)
+				// edit the defered reply with the embed
+				console.log('editing reply, embed finished')
+				await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
+			} else {
+				const other = interaction.options.getUser('user')
+				if (db.user[other.id].CACHECLASS == undefined){
+					await interaction.editReply({content: 'user does not have any of their classes stored'})
+					break;
+				}
+				const embd = new discord.MessageEmbed()
+					.setColor([0,255,128])
+					.setTitle(`classes you and ${other.tag} share`)
+				const same = db.user[userID].CACHECLASS.filter(k=>db.user[other.id].CACHECLASS.includes(k))
+				for (const i of same){
+					clas = cache.class[same[i]]
+					if (cache.user[clas.ownerId] == undefined || interaction.options.getBoolean('cache')){
+						var teacher = await classroom.getTeacher(OAAuth,clas.id,clas.ownerId)
+						cache.user[clas.ownerId] = teacher
+						console.log('cached user',clas.ownerId)
+					}
+				
+					var teacher = cache.user[clas.ownerId]
+					// created the embed content
+					var content = [
+						`Teacher: ${teacher.name.fullName}`,
+						`Email: ${teacher.emailAddress}`,
+						`Link: [Here](${clas.alternateLink})`
+					].join('\n')
+					embd.addField(clas.name,content)
+				}
+				console.log('editing reply, embed finished')
+				await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
 			}
-			// edit the defered reply with the embed
-			console.log('editing reply, embed finished')
-			await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
 		default:
 			await interaction.reply({content:'invalid command',ephemeral:(db.server[guildID].showMessages)? false:true})
