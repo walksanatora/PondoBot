@@ -52,6 +52,7 @@ async function func(interaction,client){
 		case 'link':
 			const code = interaction.options.getString('code')
 			if (code == undefined){
+				if(!Object.keys(db.user).includes(userID)){db.user[userID] = {}}
 				if(db.user[userID].auth == undefined){
 					var out = await classroom.authorize(OAAuth)
 					if (typeof out == 'string'){
@@ -78,6 +79,7 @@ async function func(interaction,client){
 			break;
 		//delete auth credentials
 		case 'unlink':
+			if(!Object.keys(db.user).includes(userID)){db.user[userID] = {}}
 			if (db.user[userID].auth==undefined) {
 				await interaction.reply({content:'you cant unlink something that isn\'t linked',ephemeral:(db.server[guildID].showMessages)? false:true})
 			} else {
@@ -88,6 +90,7 @@ async function func(interaction,client){
 			break;
 		//get classes of the user
 		case 'classes':
+			if(!Object.keys(db.user).includes(userID)){db.user[userID] = {}}
 			//defer the reply since this may take a while
 			await interaction.deferReply({ephemeral:(db.server[guildID].showMessages)? false:true})
 			console.log('defered reply')
