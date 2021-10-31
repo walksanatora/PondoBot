@@ -13,7 +13,7 @@ const data = new SlashCommandBuilder()
 			.addUserOption((opt)=>
 				opt.setName('target')
 				.setDescription('the victim to de-auth')
-				.setRequired('true')
+				.setRequired(true)
 			)
 		)
 		.addSubcommand((sub)=>
@@ -22,7 +22,7 @@ const data = new SlashCommandBuilder()
 			.addUserOption((opt)=>
 				opt.setName('target')
 				.setDescription('the victim to de-auth')
-				.setRequired('true')
+				.setRequired(true)
 			)
 			.addStringOption((opt) =>
 				opt.setName('year')
