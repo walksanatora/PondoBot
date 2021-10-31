@@ -49,14 +49,14 @@ async function func(interaction,client){
 		case 'user':
 			switch (interaction.options.getSubcommand(true)){
 				case 'de-api':
-					const target = interaction.options.getUser('target')
+					var target = interaction.options.getUser('target')
 					if(!Object.keys(db.user).includes(target.id)){db.user[target.id] = {}}
 					db.user[target.id].auth = undefined
 					db.user[target.id].emailVerified = undefined
 					db.user[target].email = undefined
 				break;
 				case 'force-grade':
-					const target = interaction.options.getUser('target')
+					var target = interaction.options.getUser('target')
 					if(!Object.keys(db.user).includes(target.id)){db.user[target.id] = {}}
 					db.user[target.id].grade = Number(interaction.options.getString('year',true))
 				break;
