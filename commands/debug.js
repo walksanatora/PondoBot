@@ -7,7 +7,6 @@ const data = new SlashCommandBuilder()
 	.addSubcommandGroup((group)=>
 		group.setName('user')
 		.setDescription('subcommands for managing user data')
-		.setRequired(true)
 		.addSubcommand((sub)=>
 			sub.setName('de-api')
 			.setDescription('forecefully removes their api tokens')
