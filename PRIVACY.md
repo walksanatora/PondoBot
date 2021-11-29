@@ -8,7 +8,7 @@ lets see how I protect yours
 ## How your data is stored
 your data is stored in plain json and will never be touched unless being read by the cache<br>
 see [bot-loop.sh](bot-loop.sh) for how the bot is ran<br>
-all data is stored on a Raspberry Pi 4b running rasbian with a desktop under ssh using a key which only I (Walker F. Fowlkes)
+all data is stored on a Raspberry Pi 4b running rasbian with a desktop under ssh using a key which only I (Walker F. Fowlkes) have <br>
 your data shall ***NEVER*** be transfered
 
 ## What data is collected
