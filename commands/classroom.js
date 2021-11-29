@@ -174,7 +174,7 @@ async function func(interaction,client){
 				console.log('list of classes in common',same)
 				for (const i of same){
 					clas = cache.class[same[i]]
-					console.log('getting cached class',same[i],clas)
+					console.log('getting cached class',i)
 					if (cache.user[clas.ownerId] == undefined || interaction.options.getBoolean('cache')){
 						var teacher = await classroom.getTeacher(OAAuth,clas.id,clas.ownerId)
 						cache.user[clas.ownerId] = teacher
