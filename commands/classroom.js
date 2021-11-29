@@ -163,10 +163,8 @@ async function func(interaction,client){
 				await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
 			} else {
 				const other = interaction.options.getUser('user')
-				if (db.user[other.id].CACHECLASS == undefined){
-					await interaction.editReply({content: 'user does not have any of their classes stored'})
-					break;
-				}
+				if (db.user[other.id] == undefined){await interaction.editReply({content:'user has no stored data',ephemeral:(db.server[guildID].showMessages)? false:true});break}
+				if (db.user[other.id].CACHECLASS == undefined){await interaction.editReply({content: 'user does not have any of their classes stored',ephemeral:(db.server[guildID].showMessages)? false:true});break;}
 				const embd = new discord.MessageEmbed()
 					.setColor([0,255,128])
 					.setTitle(`classes you and ${other.tag} share`)
@@ -189,6 +187,10 @@ async function func(interaction,client){
 					embd.addField(clas.name,content)
 				}
 				console.log('editing reply, embed finished')
+				if (same.length = 0)
+					{ 
+						embd.addField('No classes','you share no classes with the user')
+					} 
 				await interaction.editReply({embeds: [embd],ephemeral:(db.server[guildID].showMessages)? false:true})
 			}
 			break;
