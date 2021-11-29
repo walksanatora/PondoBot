@@ -64,6 +64,7 @@ async function func(interaction,client){
 			} else {
 				console.log(code)
 				const token = await classroom.authorize(OAAuth,code)
+				console.log(token)
 				if (typeof token == 'object'){
 					const email = await classroom.getEmail(token[1])
 					if (email.endsWith(cfg.EMAIL_SUFFIX)){
