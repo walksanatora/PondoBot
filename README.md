@@ -1,9 +1,9 @@
-<link rel= "stylesheet" type= "text/css" href= "docs.css">
 # PondoBot
 *a simple bot for Ponderosa High School hub discord servers*
 [invite me](https://discord.com/api/oauth2/authorize?client_id=893988257107410944&permissions=380574485568&scope=bot%20applications.commands)
 
 Dont forget to read my [Privacy Policy](PRIVACY.md)
+And follow my [Terms Of Use](TOS.md)
 
 # Features
 
