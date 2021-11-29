@@ -171,8 +171,10 @@ async function func(interaction,client){
 					.setColor([0,255,128])
 					.setTitle(`classes you and ${other.tag} share`)
 				const same = db.user[userID].CACHECLASS.filter(k=>db.user[other.id].CACHECLASS.includes(k))
+				console.log('list of classes in common',same)
 				for (const i of same){
 					clas = cache.class[same[i]]
+					console.log('getting cached class',same[i],clas)
 					if (cache.user[clas.ownerId] == undefined || interaction.options.getBoolean('cache')){
 						var teacher = await classroom.getTeacher(OAAuth,clas.id,clas.ownerId)
 						cache.user[clas.ownerId] = teacher
