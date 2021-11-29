@@ -1,4 +1,3 @@
-<link rel= "stylesheet" type= "text/css" href= "docs.css">
 # Privicy is the best policy
 lets see how I protect yours
 

@@ -60,7 +60,7 @@ as you can see the module has to export a dictionary containg values these value
 # FAQ
 ### can I run this bot for my school?
 A: yes you just need to set the correct values in `unifiedConfig.json`
-a empty json looks like
+a empty json looks like<br>
 ```json
 {
 	"DISCORD_TOKEN": "discord bot token to run the bot",
