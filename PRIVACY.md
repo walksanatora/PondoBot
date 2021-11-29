@@ -1,14 +1,10 @@
 # Privicy is the best policy
 lets see how I protect yours
-#### your data will *never* be
-1. transmitted over the internet (execept when recieving)
-2. shared with other users outside of commands
 
-#### your data *will* be
-1. cached to allow faster commands <br>
-	ex: your classes will cached to save on bandwidth<br>
-2. displayed upon request from<br>
-	* **you** when using commands<br>
-	* users that you share a class with<br>
-	* any [authorized user](libs/util.js#L20-L22)
-	(limited means that they dont get as much data)<br>
+## Your data is used
+1. [list your classes](commands/classroom.js#L92-L194)
+2. [verify your email](commands/classroom.js#L68-L76)
+
+## How your data is stored
+your data is stored in plain json and will never be touched unless being read by the cache
+see [bot-loop.sh](bot-loop.sh) for how the bot is ran
