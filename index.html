@@ -1,0 +1,63 @@
+<p><link rel= "stylesheet" type= "text/css" href= "docs.css"></p>
+<h1>PondoBot</h1>
+<p><em>a simple bot for Ponderosa High School hub discord servers</em><br>
+<a href="https://discord.com/api/oauth2/authorize?client_id=893988257107410944&amp;permissions=380574485568&amp;scope=bot%20applications.commands">invite me</a></p>
+<p>Dont forget to read my <a href="PRIVACY.md.html">Privacy Policy</a></p>
+<h1>Features</h1>
+<p>random <a href="/bot.js#L10-L16">Presences</a> whenever the bot starts<br>
+some <a href="#commands">Commands</a></p>
+<h2>commands</h2>
+<h3>help</h3>
+<p>sends a ephermral (hidden from other users) embed containg command names and help text</p>
+<h3>reload</h3>
+<p>a command used by any whitelisted user (see <a href="libs/util.js#L15">here</a>)<br>
+* <code>bot</code> reloads the bot via one of two methods (<code>exit</code> or <code>service</code>(requires a env var set))<br>
+* <code>commands</code> reloads <code>global</code> or <code>guild</code> commands (or all if no scope is specified)<br></p>
+<h3>classroom</h3>
+<p>command for linking email and classroom with the bot<br>
+* <code>link</code> run the first time to get a code then run and provide code to link (this is how you verify your email)<br>
+* <code>unlink</code> removes API tokens from your account and un-verified your email<br>
+* <code>classes</code> list your classes (can specify whether or not to use cached data)<br></p>
+<h3>students</h3>
+<p>command that involves student data current has 3 sub Commands<br>
+* <code>set-grade</code> - sets the grade you are in <br>
+* <code>get-role</code> - gives you your role if the server has been configured<br>
+* <code>lookup</code> - looks up stored information about a user</p>
+<h3>config</h3>
+<p>command that configures variables for your server<br>
+* <code>set-roles</code> takes 4 optional arguments for each role (if left blank it will create roles for them)<br>
+* <code>current</code>  shows current configs<br>
+* <code>email</code> sets the role for email-verified users <br>
+* <code>show-message</code> Config to show messages (whether or not to show ephemeral messages)</p>
+<h1>Contribuiting</h1>
+<h3>adding a command</h3>
+<p>commands are .js files placed in /commands a example command has been provided <a href="/commands/example.js">here</a><br>
+as you can see the module has to export a dictionary containg values these values are as follows:<br>
+*   data<br>
+    The command made by @discordjs/builders.SlashCommandBuilder<br>
+*   helpStr<br>
+    The string shown when running <a href="/commands/help.js">/help</a><br>
+*   canDeploy<br>
+    Boolean determining whether or not command can be sent to <em>all</em> servers the bot is in<br>
+*   guildIds<br>
+    List of strings of guild ids, used when running <a href="/guildCommand.js">guildCommand.js</a><br>
+*   function<br>
+    the async function to be called when the command has been ran, it has two values passed to it<br>
+    first is the <a href="https://discord.js.org/#/docs/main/stable/class/Interaction">interaction</a><br>
+    second is the <a href="https://discord.js.org/#/docs/main/stable/class/Client">client</a><br></p>
+<h1>FAQ</h1>
+<h3>can I run this bot for my school?</h3>
+<p>A: yes you just need to set the correct values in <code>unifiedConfig.json</code><br>
+a empty json looks like<br>
+{<br>
+    "DISCORD_TOKEN": "discord bot token to run the bot",<br>
+    "DISCORD_CLIENT": "your discord client id",<br>
+    "EMAIL_SUFFIX": "the part after the @ schools email ex: @eduhsd.k12.ca.us",<br>
+    "SERVICE": "optional systemd service for /reload bot method: service",<br>
+    "GoogleOAuth": "google OAuth2 desktop credentials json here"<br>
+}<br>
+then after those are set just run<br>
+<code>node guildCommands.js</code><br>
+note: if you want to deploy to specific servers with the above command you need to specify it in the <code>module.exports.guildIds</code> of the command<br>
+then<br>
+<code>node globalCommands.js</code><br></p>
