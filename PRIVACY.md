@@ -21,7 +21,7 @@ data about classes you have are only used afert calling [/classroom classes](/co
 
 ## What if the server is breached
 1. Pondo Bot will be setup to send out mass-dm messages notifying affected users
-2. all of `cache.json`(cached classes/teachers)
+2. all of `cache.json`(cached classes/teachers) will be deleted
 3. All OAuth2 information will be wiped 
 	`storage.json` - all verified users `auth` and `CACHECLASS` values
 	`UnifiedConfig.json` - the `GoogleOAuth` field containg the main credentials
