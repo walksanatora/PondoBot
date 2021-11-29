@@ -4,11 +4,11 @@ lets see how I protect yours
 ## Google APIs scopes and how they are used
 * `classroom.courses.readonly` - used for constructing a list of classes for displaying in a embed<br>
 * `classroom.profile.emails` - used for getting teachers emails and your email via the `me` path<br>
-* `classroom.rosters.readonly` - due to a weird quirk we are unable to get your email if this is not authorized
+* `classroom.rosters.readonly` - used for getting your email during initial linking (required to get the profile)
 
 ## How is the data stored
 all data is stored on my (Walker F. Fowlkes) Raspberry Pi 4b (4gb ram) in one of two files
-1. `cache.json` - cache of all request sent to Google APIs for faster lookup (can be invalidated by specifiying `cache: true` when using `/classroom classes`)
+1. `cache.json` - cache of all request sent to Google APIs for faster lookup (can be invalidated by specifiying `cache: true` when using `/classroom classes` which will ignore and re-generate the cache)
 2. `storage.json` - all user and server related data lives here. your API keys will be stored under your discord ID
 Access to the Raspberry pi is limited to only me (Walker F. Fowlkes) through a `wireguard` VPN using SSH using a key which only exist on my laptop
 
