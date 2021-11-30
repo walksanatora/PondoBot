@@ -18,8 +18,8 @@ Access to the Raspberry pi is limited to only me (Walker F. Fowlkes) through a `
 3. All OAuth2 information will be wiped 
 	`storage.json` - all verified users `auth` and `CACHECLASS` values
 	`UnifiedConfig.json` - the `GoogleOAuth` field containg the main credentials
-4. the OAuth2 credentials in Google cloud console
-5. OAuth2 credential will be re-generated and put back into `UnifiedConfig.json`
+4. the OAuth2 credentials in Google cloud console will be deleted
+5. OAuth2 credential will be generated and put back into `UnifiedConfig.json`
 6. all formerly-verified users will be notified that verification has been fixed and asked to re-verify
 
 
