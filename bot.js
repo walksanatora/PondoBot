@@ -1,6 +1,7 @@
 const discord = require('discord.js')
 const fs = require('fs');
 const cfg = require('./unifiedConfig.json')
+const JSON = require('json')
 
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
 // random presences that are changed through every so often
@@ -64,6 +65,12 @@ client.on('interactionCreate', async interaction => {
 	if (!interaction.isCommand()) return; //if it is not a command, we have nothing to do then
 	//log that a command was run by a user
 	console.log(`Invoking /${interaction.commandName} from user ${interaction.user.tag}`)
+	var db = require('./storage.json') || reuqire('util.js').blank
+	var server = interaction.guild.id
+	if (db.server[server] == undefined){
+		db.server[server]={}
+	}
+	s.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
 	// try running the command
 	try {
 		await commands[interaction.commandName].function(interaction,client)	

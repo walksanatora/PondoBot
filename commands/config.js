@@ -78,6 +78,9 @@ async function func(interaction,client){
 	try{var db = require('../storage.json')}catch (error){db = blank}
 	//get the guildID
 	server = interaction.guild.id
+	if (db.server[server] == undefined){
+		db.server[server]={}
+	}
 	//subcommands
 	switch (interaction.options.getSubcommand(true)){
 		//sets the config for what roles are assigned
