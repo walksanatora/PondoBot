@@ -1,7 +1,6 @@
 const discord = require('discord.js')
 const fs = require('fs');
 const cfg = require('./unifiedConfig.json')
-const JSON = require('JSON')
 
 const client = new discord.Client({intents: [discord.Intents.FLAGS.GUILD_MESSAGES,discord.Intents.FLAGS.GUILDS]});
 // random presences that are changed through every so often
