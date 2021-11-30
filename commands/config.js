@@ -101,6 +101,10 @@ async function func(interaction,client){
 		//send a embed about what the current configs are 
 		case 'current':
 			if (authorized(interaction)){
+				if ((db.server[server].grade == undefined)){
+					await interaction.reply({content: 'Server has no configured'})
+					break;
+				}
 				var message = [
 					'**---Roles---**',
 					`\`Freshman:\` ${roleMention(db.server[server].grade[0])}`,
