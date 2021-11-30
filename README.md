@@ -39,6 +39,12 @@ command that configures variables for your server
 * `email` sets the role for email-verified users 
 * `show-message` Config to show messages (whether or not to show ephemeral messages)
 
+## Fallback Mode
+sometimes accidents happen and when those accidents are severe enough the bot enters fallback mode
+in fallback mode a few things happen
+1. running `/reload` (or any sub-command) reloads the bot no matter permissions
+2. all commands except `/reload` will return a message noting that the bot is in fallback mode and the current bot logs will be attached
+
 # Contribuiting
 
 ### adding a command
