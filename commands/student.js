@@ -51,7 +51,7 @@ async function func(interaction,client){
 			break;
 		//tells you what grade you have configured
 		case 'get-grade':
-				await interaction.reply({content:`your are currently in ${noToYear[db.user[user].grade]} year`,ephemeral:(db.server[guildID].showMessages)? false:true})
+				await interaction.reply({content:`you’re currently in ${noToYear[db.user[user].grade]} year`,ephemeral:(db.server[guildID].showMessages)? false:true})
 			break;
 		//gives a role for your grade, and if your email is verified
 		case 'get-role':
