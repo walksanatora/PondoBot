@@ -11,13 +11,15 @@ random [Presences](/bot.js#L10-L16) whenever the bot starts
 some [Commands](#commands)
 
 ## commands
+a `*` after the sub-command indicates it requires authorization
+authorized users are users with `MANAGE_GUILD` in the server they are in or are on a special list [here](libs/util.js#L20)
 
 ### help
 sends a ephermral (hidden from other users) embed containg command names and help text
 
-### reload
-a command used by any whitelisted user (see [here](libs/util.js#L15))
-* `bot` reloads the bot via one of two methods (`exit` or `service`(requires a env var set))
+### reload*
+a command used by any whitelisted user
+* `bot` reloads the bot via one of two methods (`exit` or `service`(requires a value in unifiedConfig.json))
 * `commands` reloads `global` or `guild` commands (or all if no scope is specified)
 
 ### classroom
@@ -32,7 +34,7 @@ command that involves student data current has 3 sub Commands
 * `get-role` - gives you your role if the server has been configured
 * `lookup` - looks up stored information about a user
 
-### config
+### config*
 command that configures variables for your server
 * `set-roles` takes 4 optional arguments for each role (if left blank it will create roles for them)
 * `current`	 shows current configs
