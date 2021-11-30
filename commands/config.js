@@ -102,7 +102,7 @@ async function func(interaction,client){
 		case 'current':
 			if (authorized(interaction)){
 				if ((db.server[server].grade == undefined)){
-					await interaction.reply({content: 'Server has no configured'})
+					await interaction.reply({content: 'Server has nothing configured',ephemeral:(db.server[server].showMessages)? false:true})
 					break;
 				}
 				var message = [
