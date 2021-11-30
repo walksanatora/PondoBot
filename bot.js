@@ -69,7 +69,7 @@ client.on('interactionCreate', async interaction => {
 	if (db.server[server] == undefined){
 		db.server[server]={}
 	}
-	s.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
+	fs.writeFileSync('storage.json',JSON.stringify(db),'utf-8')
 	// try running the command
 	try {
 		await commands[interaction.commandName].function(interaction,client)	
