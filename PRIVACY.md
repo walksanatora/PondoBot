@@ -12,6 +12,14 @@ all data is stored on my (Walker F. Fowlkes) Raspberry Pi 4b (4gb ram) in one of
 2. `storage.json` - all user and server related data lives here. your API keys will be stored under your discord ID
 Access to the Raspberry pi is limited to only me (Walker F. Fowlkes) through a `wireguard` VPN using SSH using a key which only exist on my laptop
 
+## How is my data used
+
+your data will be used for the following
+1. verifying and displaying your email
+2. getting all avaliable google classroom classes
+how is this data sent across the internet
+checkout the [commands](../README.html#l13-42) to see how it is sent over the internet to discord
+
 ## What if the server is breached
 1. Pondo Bot will be setup to send out mass-dm messages notifying affected users
 2. all of `cache.json`(cached classes/teachers) will be deleted
@@ -21,6 +29,3 @@ Access to the Raspberry pi is limited to only me (Walker F. Fowlkes) through a `
 4. the OAuth2 credentials in Google cloud console will be deleted
 5. OAuth2 credential will be generated and put back into `UnifiedConfig.json`
 6. all formerly-verified users will be notified that verification has been fixed and asked to re-verify
-
-
-All data is handled according to [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy)

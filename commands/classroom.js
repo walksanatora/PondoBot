@@ -56,6 +56,10 @@ async function func(interaction,client){
 				if(db.user[userID].auth == undefined){
 					var out = await classroom.authorize(OAAuth)
 					if (typeof out == 'string'){
+						const embed = new discord.MessageEmbed()
+						embed.setTitle('Sign in with Google')
+						embed.setDescription('Just follow these two easy steps to link Google with PondoBot')
+						embed.addField('1. Please click the `sign in with google button` to get your OAuth2 code',`[![]](${out})`)
 						await interaction.reply({content:`Please head [here](${out}) to get code`,ephemeral:true})
 					}
 				} else {
