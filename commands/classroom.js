@@ -59,7 +59,7 @@ async function func(interaction,client){
 						const embed = new discord.MessageEmbed()
 						embed.setTitle('Sign in with Google')
 						.setDescription('Just follow these two easy steps to link Google with PondoBot')
-						.addField('1. Please click the `sign in with google button` to get your OAuth2 code',`[Sign in with google](${out})`,false)
+						.addField('1. Please click the `sign in with google` to get your OAuth2 code',`[Sign in with google](${out})`,false)
 						.addField('2. run `/classroom link code: ` with your code pasted in',"EX: `/classroom link code: hf89gh9uf389uf58h909ir12090fkjg89gu498`")
 						.setImage('https://walksanatora.github.com/PondoBot/google_signin.png')
 						await interaction.reply({embeds: [embed],ephemeral:true})
