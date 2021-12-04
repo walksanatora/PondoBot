@@ -18,7 +18,7 @@ your data will be used for the following
 1. verifying and displaying your email
 2. getting all avaliable google classroom classes
 how is this data sent across the internet
-checkout the [commands](../README.html#l13-42) to see how it is sent over the internet to discord
+checkout the [commands](README.html#l13-42) to see how it is sent over the internet to discord
 
 ## What if the server is breached
 1. Pondo Bot will be setup to send out mass-dm messages notifying affected users
