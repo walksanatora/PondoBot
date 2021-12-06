@@ -12,7 +12,7 @@ your data is obtained via functions in [libs/classroom.js](https://github.com/wa
 ## What data is collected and how is it used
 The following data is collected from the Api
 1. a list of classes you are in - used for checking similar classes  between users. plans to implement assignment checking and reminders soon™️ (stored to speed up re-requesting this data)
-2. your email - used to make sure you are apart of EDUHSD school district by checking if your email ends in @eduhsd.k12.ca.us (stored to be viewed by other users)
+2. your email - used to make sure you are apart of EDUHSD school district by checking if your email ends in @eduhsd.k12.ca.us (stored to be viewed by other users and give you the email verified role)
 3. your teachers information - used when making the class embed so you can click a link and mail your teacher (stored to speed up re-running the command)
 
 
