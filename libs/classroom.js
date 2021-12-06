@@ -61,16 +61,6 @@ async function getClass(OAuth,cid){
 	return clas
 }
 
-/**
- * Gets a class a OAuth2 user has
- * @param {google.auth.OAuth2} Oauth the OAuth2 client
- * @param {string} courseID the course id to get assignments of
- */
-async function getAssignments(OAuth,courseID){
-	const classroom = google.classroom({version:'v1',auth: OAuth})
-	const classes = (await classroom.courses.courseWork.list({courseId: courseID})).data
-	return classes
-}
 
 /**
  * Gets all email a OAuth2 user has
@@ -98,7 +88,6 @@ module.exports={
 	authorize: authorize,
 	getClasses: getClasses,
 	getClass: getClass,
-	getAssignments: getAssignments,
 	getEmail: getEmail,
 	getTeacher: getTeacher,
 }
